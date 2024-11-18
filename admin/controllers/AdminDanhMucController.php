@@ -6,6 +6,7 @@ class AdminDanhMucController
     public function __construct()
     {
         $this->modelDanhMuc = new adminDanhMuc();
+        
     }
     public function DanhSachDanhMuc()
     {
@@ -40,7 +41,6 @@ class AdminDanhMucController
             }
         }
     }
-
     public function FormEditDanhMuc()
     {
         $id = $_GET['id_danh_muc'];

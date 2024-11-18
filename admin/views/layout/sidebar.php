@@ -49,6 +49,30 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Tài Khoản
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Đơn hàng
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Bình Luận
+                        </p>
+                    </a>
+                </li>
 
             </ul>
         </nav>

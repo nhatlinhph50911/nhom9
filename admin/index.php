@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Require file Common
 require_once '../commons/env.php'; // Khai báo biến môi trường
 require_once '../commons/function.php'; // Hàm hỗ trợ
@@ -23,4 +23,13 @@ match ($act) {
     'form-sua-danh-muc' => (new AdminDanhMucController())->FormEditDanhMuc(),
     'sua-danh-muc' => (new AdminDanhMucController())->PostEditDanhMuc(),
     'xoa-danh-muc' => (new AdminDanhMucController())->deleteDanhMuc(),
+
+    // san pham
+    'san-pham' => (new AdminSanPhamController())->DanhSachSanPham(),
+    'form-them-san-pham' => (new AdminSanPhamController())->FormAddSanPham(),
+    'them-san-pham' => (new AdminSanPhamController())->PostAddSanPham(),
+    'form-sua-san-pham' => (new AdminSanPhamController())->FormEditSanPham(),
+    'sua-san-pham' => (new AdminSanPhamController())->PostEditSanPham(),
+    'sua-album-anh-san-pham' => (new AdminSanPhamController())->postEditAnhSanPham(),
+    'xoa-san-pham' => (new AdminSanPhamController())->deleteSanPham(),
 };
