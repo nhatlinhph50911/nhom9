@@ -94,17 +94,17 @@ class adminSanPham
         }
     }
 
-    public function getDetailSanPham($id)
-    {
-        try {
-            $sql = "SELECT * FROM san_phams WHERE id=:id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':id' => $id]);
-            return $stmt->fetch();
-        } catch (Exception $e) {
-            echo "Lỗi" . $e->getMessage();
-        }
-    }
+    // public function getDetailSanPham($id)
+    // {
+    //     try {
+    //         $sql = "SELECT * FROM san_phams WHERE id=:id";
+    //         $stmt = $this->conn->prepare($sql);
+    //         $stmt->execute([':id' => $id]);
+    //         return $stmt->fetch();
+    //     } catch (Exception $e) {
+    //         echo "Lỗi" . $e->getMessage();
+    //     }
+    // }
 
     public function getListAnhSanPham($id)
     {
@@ -117,20 +117,6 @@ class adminSanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
-
-    // public function getDetailDanhMuc($id)
-    // {
-    //     try {
-    //         $sql = 'SELECT * FROM danh_mucs WHERE id= :id';
-    //         $stmt = $this->conn->prepare($sql);
-    //         $stmt->execute([
-    //             ':id' => $id
-    //         ]);
-    //         return $stmt->fetch();
-    //     } catch (Exception $e) {
-    //         echo "loi" . $e->getMessage();
-    //     }
-    // }
 
     public function updateSanPham($san_pham_id, $ten_san_pham, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $hinh_anh)
     {
@@ -215,6 +201,29 @@ class adminSanPham
                 ':id' => $id
             ]);
             return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function getDetailSanPham($id)
+    {
+        try {
+            $sql = "SELECT san_phams.*, danh_mucs.ten_danh_muc FROM san_phams INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id WHERE san_phams.id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function getListCmtSp($id)
+    {
+        try {
+            $sql = "SELECT binh_luans.*, tai_khoans.ho_ten FROM binh_luans INNER JOIN tai_khoans ON binh_luans.tai_khoan_id = tai_khoans.id WHERE binh_luans.san_pham_id = :id";
+            // $sql = "SELECT * FROM binh_luans WHERE binh_luans.san_pham_id= :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetchAll();
         } catch (Exception $e) {
             echo "Lỗi" . $e->getMessage();
         }

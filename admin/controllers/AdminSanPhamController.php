@@ -280,4 +280,21 @@ class AdminSanPhamController
         header("Location: " . BASE_URL_ADMIN . '?act=san-pham');
         exit();
     }
+    public function detailSanPham()
+    {
+        $id = $_GET['id_san_pham'];
+        $SanPham = $this->modelSanPham->getDetailSanPham($id);
+        $listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
+        $listCmt = $this->modelSanPham->getListCmtSp($id);
+        // var_dump($id);
+        // var_dump($listCmt);
+        // die();
+
+        if ($SanPham) {
+            require_once './views/sanpham/detailSanPham.php';
+        } else {
+            header("Location: " . BASE_URL_ADMIN . '?act=san-pham');
+            exit();
+        }
+    }
 }

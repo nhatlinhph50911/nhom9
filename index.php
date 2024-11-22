@@ -19,6 +19,4 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/' => (new HomeController())->home(),
-
-    'danh_sach_san_pham' => (new HomeController())->danhSachSanpham()
 };

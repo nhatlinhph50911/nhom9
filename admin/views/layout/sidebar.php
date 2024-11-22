@@ -23,9 +23,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="<?= BASE_URL_ADMIN ?>" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-
                         <p>
                             Dashboard
                             <span class="right badge badge-danger">New</span>
@@ -58,19 +57,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
+                    <a href="<?= BASE_URL_ADMIN . '?act=don-hang' ?>" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Đơn hàng
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Bình Luận
-                        </p>
+                    <a href="<?= BASE_URL_ADMIN . '?act=list-tai-khoan-quan-tri' ?>" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Tài khoản quản trị</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= BASE_URL_ADMIN . '?act=list-tai-khoan-khach-hang' ?>" class="nav-link">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>Tài khoản khách hàng</p>
                     </a>
                 </li>
 

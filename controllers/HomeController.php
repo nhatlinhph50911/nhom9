@@ -9,7 +9,8 @@ class HomeController
     }
     public function home()
     {
-        echo "day la home";
+        $listSanPham = $this->modelSanPham->getAllProduct();
+        require_once './views/home.php';
     }
 
     public function danhSachSanpham()
