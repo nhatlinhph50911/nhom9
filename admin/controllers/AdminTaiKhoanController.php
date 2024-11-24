@@ -172,21 +172,35 @@ class AdminTaiKhoanController
             // die;
 
             $user = $this->modelTaiKhoan->checkLogin($email, $password);
-            // var_dump($user);
+            var_dump($user);
             // var_dump($email);
             // var_dump($password);
             // die;
             if ($user == $email) {
                 // lưu thông tin vào session
                 $_SESSION['user_admin'] = $user;
-                header("location: " . BASE_URL_ADMIN);
+                header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
                 exit();
             } else {
-                $_SESSION['error'] == $user;
-                $_SESSION['flash'] == true;
+                $_SESSION['error'] = $user;
+                // var_dump($_SESSION['error']);
+                // die;
+                $_SESSION['flash'] = true;
                 header("location: " . BASE_URL_ADMIN . '?act=login-admin');
                 exit();
             }
         }
+    }
+    public function resetPassword()
+    {
+        $id = $_GET['id_quan_tri'];
+        // var_dump($id);
+        // die();
+        // $TkKhachHang = $this->modelTaiKhoan->getDetailTaiKhoan($id);
+        $password = password_hash('24092005', PASSWORD_BCRYPT);
+        // var_dump($password);
+        // die;
+        $this->modelTaiKhoan->resetPassword($id, $password);
+        header("location: " . BASE_URL_ADMIN . '?act=list-tai-khoan-quan-tri');
     }
 }

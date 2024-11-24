@@ -102,7 +102,7 @@ class AdminTaiKhoan
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([':email' => $email]);
             $user = $stmt->fetch();
-            if ($user && $password == $user['mat_khau']) {
+            if ($user && password_verify($password, $user['mat_khau'])) {
                 if ($user['chuc_vu_id'] == 1) {
                     if ($user['trang_thai'] == 1) {
                         return $user['email'];
@@ -119,4 +119,21 @@ class AdminTaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function resetPassword($id, $password)
+    {
+        try {
+            $sql = "UPDATE tai_khoans SET
+                mat_khau = :password
+                WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':password' => $password,
+                ':id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    
 }

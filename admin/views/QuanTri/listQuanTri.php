@@ -56,6 +56,9 @@
                                                     <a href="<?php echo BASE_URL_ADMIN . '?act=form-sua-quan-tri&id_quan_tri=' . $QuanTri['id']; ?>">
                                                         <button class="btn btn-warning">Sửa</button>
                                                     </a>
+                                                    <a href="<?php echo BASE_URL_ADMIN . '?act=reset-password&id_quan_tri=' . $QuanTri['id']; ?>">
+                                                        <button class="btn btn-danger">reset</button>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

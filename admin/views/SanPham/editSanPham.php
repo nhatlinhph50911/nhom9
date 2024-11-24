@@ -78,6 +78,19 @@
                                     <p class="text-danger"> <?php echo $_SESSION['error']['ngay_nhap']; ?> </p>
                                 <?php endif ?>
                             </div>
+                            <div class="form-group col-6">
+                                <label>Kích cỡ</label>
+                                <select class="form-control" name="size[]" id="exampleFormControlSelect1" multiple>
+                                    <?php foreach ($listSize as $size) : ?>
+                                        <option value="<?php echo $size['id']; ?>">
+                                            <?php echo $size['size']; ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                </select>
+                                <?php if (isset($_SESSION['error']['size'])) : ?>
+                                    <p class="text-danger"> <?php echo $_SESSION['error']['size']; ?> </p>
+                                <?php endif ?>
+                            </div>
                             <div class="form-group">
                                 <label for="danh_muc_id">Danh mục sản phẩm</label>
                                 <select id="danh_muc_id" name="danh_muc_id" class="form-control custom-select">

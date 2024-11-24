@@ -36,7 +36,9 @@ class AdminSanPhamController
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
             $mo_ta = $_POST['mo_ta'] ?? '';
-            // $size = $_POST['size'] ?? '';
+            $sizes = $_POST['size'] ?? '';
+            // var_dump($size);
+            // die;
 
 
             $hinh_anh = $_FILES['hinh_anh'];
@@ -68,9 +70,9 @@ class AdminSanPhamController
             if (empty($trang_thai)) {
                 $errors['trang_thai'] = 'Trạng thái phải chọn';
             }
-            // if (empty($size)) {
-            //     $errors['size'] = 'Trạng thái phải chọn';
-            // }
+            if (empty($sizes)) {
+                $errors['size'] = 'size phải chọn';
+            }
 
             if ($hinh_anh['error'] !== 0) {
                 $errors['hinh_anh'] = 'Phải chọn ảnh sản phẩm';
@@ -79,7 +81,11 @@ class AdminSanPhamController
 
             if (empty($errors)) {
                 $san_pham_id = $this->modelSanPham->insertSanPham($ten_san_pham, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $file_thumb);
-                // $this->modelSanPham->insertSize($san_pham_id, $size);
+                // var_dump($san_pham_id);
+                // die;
+                if ($san_pham_id && $sizes) {
+                    $this->modelSanPham->insertSize($san_pham_id, $sizes);
+                }
                 // xử lý thêm album ảnh sản phẩm img_array
                 if (!empty($img_array['name'])) {
                     foreach ($img_array['name'] as $key => $value) {
@@ -112,6 +118,7 @@ class AdminSanPhamController
     }
     public function FormEditSanPham()
     {
+        $listSize = $this->modelSanPham->getAllKichCo();
         $id = $_GET['id_san_pham'];
         $SanPham = $this->modelSanPham->getDetailSanPham($id);
         $listAnhSanPham = $this->modelSanPham->getListAnhSanPham($id);
@@ -144,6 +151,8 @@ class AdminSanPhamController
             $danh_muc_id = $_POST['danh_muc_id'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
             $mo_ta = $_POST['mo_ta'] ?? '';
+            // $sizes = $_POST['size'] ?? '';
+
 
             $hinh_anh = $_FILES['hinh_anh'] ?? null;
 
@@ -188,6 +197,9 @@ class AdminSanPhamController
             if (empty($errors)) {
                 //Nếu không có lỗi thì tiến hành sửa sản phẩm
                 $this->modelSanPham->updateSanPham($san_pham_id, $ten_san_pham, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $new_file);
+                // if ($san_pham_id && $sizes) {
+                //     $this->modelSanPham->updateSize($san_pham_id, $sizes);
+                // }
                 header("Location: " . BASE_URL_ADMIN . '?act=san-pham');
                 exit();
             } else {
@@ -269,6 +281,7 @@ class AdminSanPhamController
         if ($sanPham) {
             deleteFile($sanPham['hinh_anh']);
             $this->modelSanPham->destroySanPham($id);
+            $this->modelSanPham->destroySizeSP($id);
         }
         if ($listAnhSanPham) {
             foreach ($listAnhSanPham as $key => $anhSP) {

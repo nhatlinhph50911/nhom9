@@ -56,7 +56,7 @@ class adminSanPham
                 ':mo_ta' => $mo_ta,
                 ':hinh_anh' => $hinh_anh
             ]);
-            //lấy id sản phẩm vừa thêm
+            // lấy id sản phẩm vừa thêm
             return $this->conn->lastInsertId();
         } catch (Exception $e) {
             echo "Lỗi" . $e->getMessage();
@@ -78,15 +78,17 @@ class adminSanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
-    public function insertSize($san_pham_id, $size)
+    public function insertSize($san_pham_id, $sizes)
     {
         try {
-            $sql = "INSERT INTO kich_co_san_phams (san_pham_id, size) VALUES (:san_pham_id, :size)";
+            $sql = "INSERT INTO kich_co_san_phams (san_pham_id, kich_co_id) VALUES (:san_pham_id, :size)";
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([
-                ':san_pham_id' => $san_pham_id,
-                ':size' => $size
-            ]);
+            foreach ($sizes as $sizeId) {
+                $stmt->execute([
+                    ':san_pham_id' => $san_pham_id,
+                    ':size' => $sizeId
+                ]);
+            }
             //lấy id sản phẩm vừa thêm
             return true;
         } catch (Exception $e) {
@@ -151,6 +153,25 @@ class adminSanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
+    // public function updateSize($san_pham_id, $sizes)
+    // {
+    //     try {
+    //         $sql = "UPDATE san_phams SET 
+    //             san_pham_id = :san_pham_id,
+    //             kich_co_id = :kich_co_id,
+    //             WHERE id = :id";
+    //         $stmt = $this->conn->prepare($sql);
+    //         $stmt->execute([
+    //             ':mo_ta' => $mo_ta,
+    //             ':hinh_anh' => $hinh_anh,
+    //             ':id' => $san_pham_id
+    //         ]);
+    //         //lấy id sản phẩm vừa thêm
+    //         return true;
+    //     } catch (Exception $e) {
+    //         echo "Lỗi" . $e->getMessage();
+    //     }
+    // }
     public function getDetailAnhSanPham($id)
     {
         try {
@@ -196,6 +217,19 @@ class adminSanPham
     {
         try {
             $sql = "DELETE FROM san_phams WHERE :id = id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function destroySizeSP($id)
+    {
+        try {
+            $sql = "DELETE FROM kich_co_san_phams WHERE san_pham_id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':id' => $id

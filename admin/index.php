@@ -48,7 +48,7 @@ match ($act) {
     // 'chi-tiet-don-hang' => (new AdminDonHangController())->detailDonHang(),
 
     // thong ke
-    '/' => (new AdminThongKeController())->home(),
+    '/' => (new AdminTaiKhoanController())->formLogin(),
 
     // quan ly tai khoan quan tri
 
@@ -57,6 +57,7 @@ match ($act) {
     'them-quan-tri' => (new AdminTaiKhoanController())->postAddQuanTri(),
     'form-sua-quan-tri' => (new AdminTaiKhoanController())->formEditQuanTri(),
     'sua-quan-tri' => (new AdminTaiKhoanController())->postEditQuanTri(),
+    'reset-password' => (new AdminTaiKhoanController())->resetPassword(),
 
     //quan ly tai khoan khach hang
     'form-sua-khach-hang' => (new AdminTaiKhoanController())->formEditKhachHang(),

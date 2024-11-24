@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // Require file Common
 require_once './commons/env.php'; // Khai báo biến môi trường
 require_once './commons/function.php'; // Hàm hỗ trợ
@@ -10,6 +10,8 @@ require_once './controllers/HomeController.php';
 // Require toàn bộ file Models
 require_once './models/Student.php';
 require_once './models/SanPham.php';
+require_once './models/TaiKhoan.php';
+require_once './models/GioHang.php';
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -19,4 +21,10 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/' => (new HomeController())->home(),
+    'chi-tiet-san-pham' => (new HomeController())->detailProduct(),
+    'login-client' => (new HomeController())->formLogin(),
+    'check-login' => (new HomeController())->postLogin(),
+    'them-gio-hang' => (new HomeController())->addGioHang(),
+    'gio-hang' => (new HomeController())->gioHang(),
+    // 'thanh-toan' => (new HomeController())->gioHang(),
 };

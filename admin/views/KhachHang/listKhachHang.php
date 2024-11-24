@@ -58,6 +58,10 @@
                                                     <a href="<?php echo BASE_URL_ADMIN . '?act=form-sua-khach-hang&id_quan_tri=' . $KhachHang['id']; ?>">
                                                         <button class="btn btn-warning">Sửa</button>
                                                     </a>
+                                                    <a href="<?php echo BASE_URL_ADMIN . '?act=reset-password&id_quan_tri=' . $KhachHang['id']; ?>">
+                                                        <button class="btn btn-danger">reset</button>
+                                                    </a>
+
                                                 </div>
                                             </td>
                                         </tr>
