@@ -116,7 +116,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <a href="checkout.html" class="btn btn-sqr d-block">Đặt hàng</a>
+                            <a href="<?= BASE_URL . '?act=thanh-toan' ?>" class="btn btn-sqr d-block">Đặt hàng</a>
                         </div>
                     </div>
                 </div>

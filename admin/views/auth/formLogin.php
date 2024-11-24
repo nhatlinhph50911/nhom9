@@ -120,7 +120,7 @@
                 <a href="../../index2.html" class="h1"><b>Login Admin</b></a>
             </div>
             <div class="card-body">
-                <?php if ($_SESSION['error']) { ?>
+                <?php if (isset($_SESSION['error'])) { ?>
                     <p class="text-danger login-box-msg"><?= $_SESSION['error'] ?></p>
                 <?php } else { ?>
                     <p class="login-box-msg">Vui lòng đăng nhập</p>

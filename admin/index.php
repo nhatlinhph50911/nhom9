@@ -58,6 +58,8 @@ match ($act) {
     'form-sua-quan-tri' => (new AdminTaiKhoanController())->formEditQuanTri(),
     'sua-quan-tri' => (new AdminTaiKhoanController())->postEditQuanTri(),
     'reset-password' => (new AdminTaiKhoanController())->resetPassword(),
+    'sua-tai-khoan-ca-nhan' => (new AdminTaiKhoanController())->inforCaNhan(),
+    'form-sua-ca-nhan' => (new AdminTaiKhoanController())->formEditCaNhan(),
 
     //quan ly tai khoan khach hang
     'form-sua-khach-hang' => (new AdminTaiKhoanController())->formEditKhachHang(),

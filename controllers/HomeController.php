@@ -5,11 +5,13 @@ class HomeController
     public $modelSanPham;
     public $modelTaiKhoan;
     public $modelGioHang;
+    public $modelDonHang;
     public function __construct()
     {
         $this->modelSanPham = new SanPham();
         $this->modelTaiKhoan = new TaiKhoan();
         $this->modelGioHang = new GioHang();
+        $this->modelDonHang = new DonHang();
     }
     public function home()
     {
@@ -128,6 +130,102 @@ class HomeController
                 require_once './views/gioHang.php';
             } else {
                 var_dump('loi');
+                die;
+            }
+        } else {
+            header("location: " . BASE_URL . '?act=login-client');
+        }
+    }
+    public function thanhToan()
+    {
+        if ($_SESSION['user_client']) {
+            if (isset($_SESSION['user_client'])) {
+                $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+                // var_dump($user['id']);
+                // die;
+                $gioHang = $this->modelGioHang->getGioHangFromUser($user['id']);
+                if (!$gioHang) {
+                    $gioHangId = $this->modelGioHang->addGioHang($user['id']);
+                    $gioHang = ['id' => $gioHangId];
+                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+                } else {
+                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+                }
+                // var_dump($user);
+                // die;
+
+                require_once './views/thanhToan.php';
+            } else {
+                var_dump('loi');
+                die;
+            }
+        } else {
+            header("location: " . BASE_URL . '?act=/');
+        }
+    }
+    public function postThanhToan()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // var_dump($_POST);
+            // die;
+            $ten_nguoi_nhan = $_POST['ten_nguoi_nhan'];
+            $email_nguoi_nhan = $_POST['email_nguoi_nhan'];
+            $sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'];
+            $dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'];
+            $ghi_chu = $_POST['ghi_chu'];
+            $tong_tien = $_POST['tong_tien'];
+            $phuong_thuc_thanh_toan_id = $_POST['phuong_thuc_thanh_toan_id'];
+
+            $ngay_dat = Date("Y-m-d");
+            // var_dump($ngay_dat);
+            $trang_thai_id = 1;
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+            $tai_khoan_id = $user['id'];
+            $ma_don_hang = 'DH' . rand(1000, 9999);
+            $donHang = $this->modelDonHang->addDonHang(
+                $tai_khoan_id,
+                $ten_nguoi_nhan,
+                $email_nguoi_nhan,
+                $sdt_nguoi_nhan,
+                $dia_chi_nguoi_nhan,
+                $ghi_chu,
+                $tong_tien,
+                $phuong_thuc_thanh_toan_id,
+                $ngay_dat,
+                $trang_thai_id,
+                $ma_don_hang
+            );
+            // lấy thông tin giỏ hàng của người dùng
+            $gioHang = $this->modelGioHang->getGioHangFromUser($tai_khoan_id);
+
+            // luu san pham vao chi tiet don hang
+            if ($donHang) {
+                // lay ra toan bo san pham trong gio hang
+                $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+
+                //them tung san pham tu gio hang vao chi tiet don hang
+                foreach ($chiTietGioHang as $item) {
+                    $donGia = $item['gia_khuyen_mai'] ?? $item['gia_san_pham'];
+
+                    $this->modelDonHang->addChiTietDonHang(
+                        $donHang, // id don hang vua tao
+                        $item['san_pham_id'], //id san pham
+                        $donGia, //don gia 
+                        $item['so_luong'], // so luong
+                        $donGia * $item['so_luong'] // thanh tien
+                    );
+                }
+                // sau khi them tien hanh xoa san pham trong gio hang
+                // xoa toan bo san pham trong chi tiet gio hang
+                $this->modelGioHang->clearDetailGioHang($gioHang['id']);
+
+                // xoa thong tin gio hang nguoi dung
+                $this->modelGioHang->clearGioHang($tai_khoan_id);
+
+                // chuyen huong ve trang lich su mua hang
+                // header("location: " . BASE_URL . '?act=lich-su-mua-hang');
+            } else {
+                var_dump("loi dat hang");
                 die;
             }
         }

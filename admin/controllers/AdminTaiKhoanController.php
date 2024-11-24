@@ -111,8 +111,6 @@ class AdminTaiKhoanController
     {
         $id = $_GET['id_quan_tri'];
         $TkKhachHang = $this->modelTaiKhoan->getDetailTaiKhoan($id);
-        // var_dump($TkKhachHang);
-        // die;
         require_once './views/KhachHang/EditKhachHang.php';
         deleteSessionError();
     }
@@ -168,11 +166,12 @@ class AdminTaiKhoanController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = trim($_POST['email']);
             $password = $_POST['password'];
+            $_SESSION['error'] = '';
             // var_dump($password);
             // die;
 
             $user = $this->modelTaiKhoan->checkLogin($email, $password);
-            var_dump($user);
+            // var_dump($user);
             // var_dump($email);
             // var_dump($password);
             // die;
@@ -202,5 +201,23 @@ class AdminTaiKhoanController
         // die;
         $this->modelTaiKhoan->resetPassword($id, $password);
         header("location: " . BASE_URL_ADMIN . '?act=list-tai-khoan-quan-tri');
+    }
+    public function inforCaNhan()
+    {
+        if (isset($_SESSION['user_admin'])) {
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_admin']);
+            // var_dump($user);/
+            require_once './views/QuanTri/taiKhoanCaNhan.php';
+        } else {
+            var_dump("chua dang nhap");
+        }
+    }
+    public function formEditCaNhan()
+    {
+        $id = $_GET['id_quan_tri'];
+        $user = $this->modelTaiKhoan->getDetailTaiKhoan($id);
+        // var_dump($user);
+        // die;
+        require_once './views/QuanTri/formEditCaNhan.php';
     }
 }

@@ -12,6 +12,7 @@ require_once './models/Student.php';
 require_once './models/SanPham.php';
 require_once './models/TaiKhoan.php';
 require_once './models/GioHang.php';
+require_once './models/DonHang.php';
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -26,5 +27,6 @@ match ($act) {
     'check-login' => (new HomeController())->postLogin(),
     'them-gio-hang' => (new HomeController())->addGioHang(),
     'gio-hang' => (new HomeController())->gioHang(),
-    // 'thanh-toan' => (new HomeController())->gioHang(),
+    'thanh-toan' => (new HomeController())->thanhToan(),
+    'xu-li-thanh-toan' => (new HomeController())->postThanhToan(),
 };
