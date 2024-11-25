@@ -25,8 +25,12 @@ match ($act) {
     'chi-tiet-san-pham' => (new HomeController())->detailProduct(),
     'login-client' => (new HomeController())->formLogin(),
     'check-login' => (new HomeController())->postLogin(),
+    'logout-client' => (new HomeController())->logoutClient(),
     'them-gio-hang' => (new HomeController())->addGioHang(),
     'gio-hang' => (new HomeController())->gioHang(),
     'thanh-toan' => (new HomeController())->thanhToan(),
     'xu-li-thanh-toan' => (new HomeController())->postThanhToan(),
+    'lich-su-mua-hang' => (new HomeController())->lichSuMuaHang(),
+    // 'chi-tiet-mua-hang' => (new HomeController())->chiTietMuaHang(),
+    // 'huy-don-hang' => (new HomeController())->postThanhToan(),
 };

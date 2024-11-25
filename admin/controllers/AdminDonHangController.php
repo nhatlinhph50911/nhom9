@@ -29,7 +29,11 @@ class AdminDonHangController
     public function formEditDonHang()
     {
         $id = $_GET['id_don_hang'];
+        // var_dump($id);
+        // die;
         $donHang = $this->modelDonHang->getDetailDonHang($id);
+        // var_dump($donHang);
+        // die;
         $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
         if ($donHang) {
             require_once './views/DonHang/editDonHang.php';

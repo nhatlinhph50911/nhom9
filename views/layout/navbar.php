@@ -68,6 +68,7 @@
                                     <label for="">
                                         <?php if (isset($_SESSION['user_client'])) {
                                             echo $_SESSION['user_client'];
+                                            // echo $clientUser['ho_ten'];
                                         } ?>
                                     </label>
                                     <li class="user-hover">
@@ -78,7 +79,9 @@
                                             <?php if (!isset($_SESSION['user_client'])) { ?>
                                                 <li><a href="<?= BASE_URL . '?act=login-client' ?>">Đăng nhập</a></li>
                                             <?php } else { ?>
-                                                <li><a href="my-account.html">Tài khoản</a></li>
+                                                <li><a href="#">Tài khoản</a></li>
+                                                <li><a href="<?= BASE_URL . '?act=lich-su-mua-hang' ?>">lịch sử mua hàng</a></li>
+                                                <li><a href="<?= BASE_URL . '?act=logout-client' ?>">Đăng xuất</a></li>
                                             <?php } ?>
                                         </ul>
                                     </li>

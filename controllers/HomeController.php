@@ -223,11 +223,37 @@ class HomeController
                 $this->modelGioHang->clearGioHang($tai_khoan_id);
 
                 // chuyen huong ve trang lich su mua hang
-                // header("location: " . BASE_URL . '?act=lich-su-mua-hang');
+                header("location: " . BASE_URL . '?act=lich-su-mua-hang');
             } else {
                 var_dump("loi dat hang");
                 die;
             }
+        }
+    }
+    public function logoutClient()
+    {
+        if (isset($_SESSION['user_client'])) {
+            session_destroy();
+
+            // var_dump($_SESSION['user_client']);
+            // var_dump("null");
+            // die;
+            header("location: " . BASE_URL . '?act=/');
+        }
+    }
+    public function lichSuMuaHang()
+    {
+        if (isset($_SESSION['user_client'])) {
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+            $tai_khoan_id = $user['id'];
+
+
+            $donHangs = $this->modelDonHang->getDonHangFromUser($tai_khoan_id);
+            // var_dump($donHangs);
+            // die;
+            require_once './views/lichSuMuaHang.php';
+        } else {
+            header("location: " . BASE_URL . '?act=login-client');
         }
     }
 }
