@@ -9,12 +9,18 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="./assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">Admin</a>
-            </div>
+            <?php if (isset($_SESSION['user_admin'])) { ?>
+                <div class="image">
+                    <img src="./assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Admin</a>
+                </div>
+                <button class="btn btn-primary"><a href="?act=logout-admin">Đăng xuất</a></button>
+            <?php } else { ?>
+
+                <button class="btn btn-primary"><a href="?act=login-admin">Đăng nhập</a></button>
+            <?php } ?>
         </div>
 
         <!-- Sidebar Menu -->
@@ -49,14 +55,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= BASE_URL_ADMIN . '?act=san-pham' ?>" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Tài Khoản
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="<?= BASE_URL_ADMIN . '?act=don-hang' ?>" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -72,7 +70,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= BASE_URL_ADMIN . '?act=sua-tai-khoan-ca-nhan' ?>" class="nav-link">
+                    <a href="<?= BASE_URL_ADMIN . '?act=tai-khoan-ca-nhan' ?>" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                         <p>tài khoản cá nhân</p>
                     </a>

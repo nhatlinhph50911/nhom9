@@ -52,12 +52,12 @@
                                         <td> <?php echo $user['ngay_sinh']; ?> </td>
                                         <td> <?php echo $user['email']; ?> </td>
                                         <td> <?php echo $user['so_dien_thoai']; ?> </td>
-                                        <td> <?php echo $user['gioi_tinh']; ?> </td>
+                                        <td> <?php echo $user['gioi_tinh'] == 1 ? 'Nam' : 'Nữ'; ?> </td>
                                         <td> <?php echo $user['dia_chi']; ?> </td>
                                         <td> <?php echo $user['trang_thai'] == 1 ? 'Active' : 'Inactive'; ?> </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="<?php echo BASE_URL_ADMIN . '?act=form-sua-ca-nhan&id_quan_tri=' . $user['id']; ?>">
+                                                <a href="<?php echo BASE_URL_ADMIN . '?act=form-sua-ca-nhan&id_ca_nhan=' . $user['id']; ?>">
                                                     <button class="btn btn-warning">Sửa</button>
                                                 </a>
                                                 <a href="<?php echo BASE_URL_ADMIN . '?act=reset-password&id_quan_tri=' . $user['id']; ?>">

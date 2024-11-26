@@ -51,15 +51,17 @@ match ($act) {
     '/' => (new AdminTaiKhoanController())->formLogin(),
 
     // quan ly tai khoan quan tri
-
     'list-tai-khoan-quan-tri' => (new AdminTaiKhoanController())->listQuanTri(),
     'form-them-quan-tri' => (new AdminTaiKhoanController())->formAddQuanTri(),
     'them-quan-tri' => (new AdminTaiKhoanController())->postAddQuanTri(),
     'form-sua-quan-tri' => (new AdminTaiKhoanController())->formEditQuanTri(),
     'sua-quan-tri' => (new AdminTaiKhoanController())->postEditQuanTri(),
     'reset-password' => (new AdminTaiKhoanController())->resetPassword(),
-    'sua-tai-khoan-ca-nhan' => (new AdminTaiKhoanController())->inforCaNhan(),
+
+    // quan ly tai khoan ca nhan
+    'tai-khoan-ca-nhan' => (new AdminTaiKhoanController())->inforCaNhan(),
     'form-sua-ca-nhan' => (new AdminTaiKhoanController())->formEditCaNhan(),
+    'sua-ca-nhan' => (new AdminTaiKhoanController())->postEditCaNhan(),
 
     //quan ly tai khoan khach hang
     'form-sua-khach-hang' => (new AdminTaiKhoanController())->formEditKhachHang(),
@@ -69,4 +71,5 @@ match ($act) {
     // route auth
     'login-admin' => (new AdminTaiKhoanController())->formLogin(),
     'check-login-admin' => (new AdminTaiKhoanController())->login(),
+    'logout-admin' => (new AdminTaiKhoanController())->logoutAdmin(),
 };

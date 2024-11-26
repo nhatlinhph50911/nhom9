@@ -146,5 +146,34 @@ class AdminTaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
-    
+    public function updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id)
+    {
+        try {
+            $sql = "UPDATE tai_khoans SET
+                ho_ten = :ho_ten,
+                ngay_sinh = :ngay_sinh,
+                gioi_tinh = :gioi_tinh,
+                dia_chi = :dia_chi,
+                email = :email,
+                so_dien_thoai = :so_dien_thoai,
+                mat_khau = :password,
+                trang_thai = :trang_thai
+                WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':ho_ten' => $ho_ten,
+                ':ngay_sinh' => $ngay_sinh,
+                ':gioi_tinh' => $gioi_tinh,
+                ':dia_chi' => $dia_chi,
+                ':email' => $email,
+                ':so_dien_thoai' => $so_dien_thoai,
+                ':password' => $password,
+                ':trang_thai' => $trang_thai,
+                ':id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }

@@ -35,7 +35,7 @@ class AdminTaiKhoanController
 
             if (empty($errors)) {
                 $chuc_vu_id = 1;
-                $password = password_hash('123@123ab', PASSWORD_BCRYPT);
+                $password = password_hash('24092005', PASSWORD_BCRYPT);
                 $result = $this->modelTaiKhoan->insertQuanTri($ho_ten, $email, $password, $chuc_vu_id);
 
                 if ($result) {
@@ -206,18 +206,86 @@ class AdminTaiKhoanController
     {
         if (isset($_SESSION['user_admin'])) {
             $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_admin']);
-            // var_dump($user);/
+            // var_dump($user);
+            // die;
             require_once './views/QuanTri/taiKhoanCaNhan.php';
         } else {
-            var_dump("chua dang nhap");
+            header("location: " . BASE_URL_ADMIN . '?act=login-admin');
         }
     }
     public function formEditCaNhan()
     {
-        $id = $_GET['id_quan_tri'];
+        $id = $_GET['id_ca_nhan'];
         $user = $this->modelTaiKhoan->getDetailTaiKhoan($id);
         // var_dump($user);
         // die;
         require_once './views/QuanTri/formEditCaNhan.php';
+    }
+    public function logoutAdmin()
+    {
+        if (isset($_SESSION['user_admin'])) {
+            session_destroy();
+
+            // var_dump($_SESSION['user_client']);
+            // var_dump("null");
+            // die;
+            header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+        }
+    }
+    public function postEditCaNhan()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id_ca_nhan'];
+            $ho_ten = $_POST['ho_ten'] ?? '';
+            $ngay_sinh = $_POST['ngay_sinh'] ?? '';
+            $gioi_tinh = $_POST['gioi_tinh'] ?? '';
+            $dia_chi = $_POST['dia_chi'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $passwords = $_POST['password'] ?? '';
+            $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
+            $trang_thai = $_POST['trang_thai'] ?? '';
+
+            $errors = [];
+
+            if (empty($ho_ten)) {
+                $errors['ho_ten'] = 'Họ tên không được để trống';
+            }
+            if (empty($ngay_sinh)) {
+                $errors['ngay_sinh'] = 'ngày sinh không được để trống';
+            }
+            if (empty($gioi_tinh)) {
+                $errors['gioi_tinh'] = 'giới tính không được để trống';
+            }
+            if (empty($dia_chi)) {
+                $errors['dia_chi'] = 'địa chỉ không được để trống';
+            }
+            if (empty($email)) {
+                $errors['email'] = 'Email không được để trống';
+            }
+            if (empty($so_dien_thoai)) {
+                $errors['so_dien_thoai'] = 'số điện thoại không được để trống';
+            }
+            if (empty($trang_thai)) {
+                $errors['trang_thai'] = 'trạng thái không được để trống';
+            }
+            $_SESSION['error'] = $errors;
+
+            if (empty($errors)) {
+                $password = password_hash($passwords, PASSWORD_BCRYPT);
+                // die;
+                $result = $this->modelTaiKhoan->updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id);
+
+                if ($result) {
+                    header("location: " . BASE_URL_ADMIN . '?act=tai-khoan-ca-nhan');
+                    exit();
+                } else {
+                    echo "Lỗi: Dữ liệu không được thêm vào cơ sở dữ liệu.";
+                    exit();
+                }
+            } else {
+                $_SESSION['flash'] = true;
+                header("location: " . BASE_URL_ADMIN . '?act=form-sua-ca-nhan&id_ca_nhan=' . $id);
+            }
+        }
     }
 }

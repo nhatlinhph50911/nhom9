@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>QUẢN LÝ TÀI KHOẢN QUẢN TRỊ</h1>
+                    <h1>QUẢN LÝ TÀI KHOẢN CÁ NHÂN</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -26,7 +26,7 @@
             <div class="col-md-8">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Thông tin tài khoản quản trị</h3>
+                        <h3 class="card-title">Thông tin tài khoản: <?= $user['ho_ten'] ?></h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <form action="<?php echo BASE_URL_ADMIN . '?act=sua-quan-tri'; ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo BASE_URL_ADMIN . '?act=sua-ca-nhan'; ?>" method="post" enctype="multipart/form-data">
 
                         <div class="card-body">
                             <div class="form-group">
@@ -55,16 +55,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="gioi_tinh">giới tính</label>
-                                <input type="text" id="gioi_tinh" name="gioi_tinh" class="form-control" value="<?php echo $user['gioi_tinh']; ?>">
+                                <select id="gioi_tinh" name="gioi_tinh" class="form-control custom-select">
+                                    <option <?php echo $user['gioi_tinh'] == 1 ? 'selected' : ''; ?> value="1">Nam</option>
+                                    <option <?php echo $user['gioi_tinh'] == 2 ? 'selected' : ''; ?> value="2">Nữ</option>
+                                </select>
                                 <?php if (isset($_SESSION['error']['gioi_tinh'])) : ?>
                                     <p class="text-danger"> <?php echo $_SESSION['error']['gioi_tinh']; ?> </p>
                                 <?php endif ?>
                             </div>
                             <div class="form-group">
-                                <label for="ho_ten">Tên tài khoản</label>
-                                <input type="text" id="ho_ten" name="ho_ten" class="form-control" value="<?php echo $user['ho_ten']; ?>">
-                                <?php if (isset($_SESSION['error']['ho_ten'])) : ?>
-                                    <p class="text-danger"> <?php echo $_SESSION['error']['ho_ten']; ?> </p>
+                                <label for="dia_chi">địa chỉ</label>
+                                <input type="text" id="dia_chi" name="dia_chi" class="form-control" value="<?php echo $user['dia_chi']; ?>">
+                                <?php if (isset($_SESSION['error']['dia_chi'])) : ?>
+                                    <p class="text-danger"> <?php echo $_SESSION['error']['dia_chi']; ?> </p>
                                 <?php endif ?>
                             </div>
                             <div class="form-group">

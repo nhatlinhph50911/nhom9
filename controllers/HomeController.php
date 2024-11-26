@@ -16,9 +16,11 @@ class HomeController
     public function home()
     {
         $listSanPham = $this->modelSanPham->getAllProduct();
+        $danhMucs = $this->modelSanPham->getAllDanhMuc();
+        // var_dump($danhMuc);
+        // die;
         require_once './views/home.php';
     }
-
     public function danhSachSanpham()
     {
         $listProduct = $this->modelSanPham->getAllProduct();
@@ -67,6 +69,8 @@ class HomeController
                 exit();
             } else {
                 $_SESSION['error'] = $user;
+                // var_dump($_SESSION['error']);
+                // die;
                 $_SESSION['flash'] = true;
                 // var_dump($user);
                 // var_dump($_SESSION['error']);
@@ -87,6 +91,8 @@ class HomeController
                 if (!$gioHang) {
                     $gioHangId = $this->modelGioHang->addGioHang($mail['id']);
                     $gioHang = ['id' => $gioHangId];
+                    var_dump($gioHang);
+                    die;
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
                 } else {
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
@@ -106,8 +112,8 @@ class HomeController
                 }
                 header("location: " . BASE_URL . '?act=gio-hang');
             } else {
-                var_dump('loi');
-                die;
+                header("location: " . BASE_URL . '?act=login-client');
+                // die;
             }
         }
     }
@@ -254,6 +260,51 @@ class HomeController
             require_once './views/lichSuMuaHang.php';
         } else {
             header("location: " . BASE_URL . '?act=login-client');
+        }
+    }
+    public function registers()
+    {
+        require_once './views/auth/register.php';
+        deleteSessionError();
+    }
+    public function postRegisters()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $ho_ten = $_POST['ho_ten'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $password_repeat = $_POST['password_repeat'] ?? '';
+
+            $error = [];
+
+            // if (empty($ho_ten)) {
+            //     $error['ho_ten'] = "bạn chưa nhập họ tên";
+            // }
+            // if (empty($email)) {
+            //     $error['email'] = "bạn chưa nhập email";
+            // }
+            // if (empty($password)) {
+            //     $error['$password'] = "bạn chưa nhập mật khẩu";
+            // }
+            // if (empty($password_repeat)) {
+            //     $error['password_repeat'] = "bạn chưa nhập lại mật khẩu";
+            // }
+            // $_SESSION['error'] = $error;
+            if ($password == $password_repeat) {
+                $mat_khau = password_hash($password, PASSWORD_BCRYPT);
+                // var_dump($password);
+                // var_dump($mat_khau);
+                // die;
+                $this->modelTaiKhoan->addUser($ho_ten, $email, $mat_khau, 2);
+                header("location: " . '?act=login-client');
+            } else {
+                $error['check_password'] = "mật khẩu bạn nhập không trùng khớp";
+                $_SESSION['error'] = $error;
+                // var_dump($_SESSION['error']);
+                // die;
+                $_SESSION['flash'] = true;
+                header("location: " . BASE_URL . '?act=register');
+            }
         }
     }
 }

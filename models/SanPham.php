@@ -69,4 +69,15 @@ class SanPham
             echo "Lỗi: " . $e->getMessage();
         }
     }
+    public function getAllDanhMuc()
+    {
+        try {
+            $sql = "SELECT * FROM danh_mucs";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(); // Lấy tất cả các dòng kết quả
+        } catch (Exception $e) {
+            echo "Lỗi: " . $e->getMessage();
+        }
+    }
 }

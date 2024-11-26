@@ -31,16 +31,9 @@
                                         </li>
                                         <li><a href="blog-left-sidebar.html">Sản Phảm<i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown">
-                                                <li><a href="blog-left-sidebar.html">blog left sidebar</a></li>
-                                                <li><a href="blog-list-left-sidebar.html">blog list left sidebar</a></li>
-                                                <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                <li><a href="blog-list-right-sidebar.html">blog list right sidebar</a></li>
-                                                <li><a href="blog-grid-full-width.html">blog grid full width</a></li>
-                                                <li><a href="blog-details.html">blog details</a></li>
-                                                <li><a href="blog-details-left-sidebar.html">blog details left sidebar</a></li>
-                                                <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                                <li><a href="blog-details-video.html">blog details video</a></li>
-                                                <li><a href="blog-details-image.html">blog details image</a></li>
+                                                <?php foreach ($danhMucs as $danhMuc): ?>
+                                                    <li><a href="blog-left-sidebar.html"><?= $danhMuc['ten_danh_muc'] ?></a></li>
+                                                <?php endforeach ?>
                                             </ul>
                                         </li>
                                         <li><a href="contact-us.html">Giới thiệu</a></li>
@@ -78,6 +71,7 @@
                                         <ul class="dropdown-list">
                                             <?php if (!isset($_SESSION['user_client'])) { ?>
                                                 <li><a href="<?= BASE_URL . '?act=login-client' ?>">Đăng nhập</a></li>
+                                                <li><a href="<?= BASE_URL . '?act=register' ?>">Đăng ký</a></li>
                                             <?php } else { ?>
                                                 <li><a href="#">Tài khoản</a></li>
                                                 <li><a href="<?= BASE_URL . '?act=lich-su-mua-hang' ?>">lịch sử mua hàng</a></li>

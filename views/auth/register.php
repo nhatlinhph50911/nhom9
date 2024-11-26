@@ -4,7 +4,6 @@
 <!-- menu -->
 <?php require_once 'views/layout/navbar.php'; ?>
 <!-- end menu -->
-
 <main>
     <!-- breadcrumb area start -->
     <div class="breadcrumb-area">
@@ -14,8 +13,9 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">login-Register</li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL . '?act=/' ?>"><i class="fa fa-home"></i></a></li>
+                                <li class="breadcrumb-item active" href="<?= BASE_URL . '?act=login-client' ?>" aria-current="page">Đăng nhập</li>
+                                <li class="breadcrumb-item active" aria-current="page">Đăng ký</li>
                             </ul>
                         </nav>
                     </div>
@@ -30,38 +30,44 @@
         <div class="container" style="max-width: 40vw">
             <div class="member-area-from-wrap">
                 <div class="row">
-                    <!-- Login Content Start -->
+                    <!-- Register Content Start -->
                     <div class="col-lg-12">
-                        <div class="login-reg-form-wrap">
-                            <h5>đăng nhập</h5>
-                            <?php if (isset($_SESSION['error'])) { ?>
-                                <p class="text-danger login-box-msg"><?= $_SESSION['error'] ?></p>
-                            <?php } else { ?>
-                                <p class="login-box-msg">Vui lòng đăng nhập</p>
-                            <?php } ?>
-                            <form action="<?= BASE_URL . '?act=check-login' ?>" method="post">
+                        <div class="login-reg-form-wrap sign-up-form">
+                            <h5>Đăng ký tài khoản</h5>
+                            <form action="<?= BASE_URL . '?act=check-register' ?>" method="post">
                                 <div class="single-input-item">
-                                    <input type="email" placeholder="Email or Username" required name="email" />
-                                </div>
-                                <div class="single-input-item">
-                                    <input type="password" placeholder="Enter your Password" required name="password" />
-                                </div>
-                                <div class="single-input-item">
-                                    <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                        <a href="#" class="forget-pwd">quên mật khẩu?</a><br>
-                                        <a href="<?= BASE_URL . '?act=register' ?>" class="forget-pwd">Đăng ký?</a>
-                                    </div>
+                                    <input type="text" name="ho_ten" placeholder="họ tên" required />
 
                                 </div>
                                 <div class="single-input-item">
-                                    <button class="btn btn-sqr">đăng nhập</button>
+                                    <input type="email" name="email" placeholder="nhập email" required />
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <input type="password" name="password" placeholder="nhập mật khẩu" required />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <input type="password" name="password_repeat" placeholder="nhập lại mật khẩu" required />
+
+                                        </div>
+                                    </div>
+                                    <?php if (isset($_SESSION['error']['check_password'])) { ?>
+                                        <p class="text-danger"> <?= $_SESSION['error']['check_password'] ?> </p>
+                                    <?php } ?>
+                                </div>
+
+                                <div class="single-input-item">
+                                    <button class="btn btn-sqr">Đăng ký</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <!-- Login Content End -->
-
-
+                    <!-- Register Content End -->
                 </div>
             </div>
         </div>
