@@ -187,23 +187,29 @@
 <?php require './views/layout/footer.php' ?>
 <!-- end footer -->
 <script>
-    $(function() {
-        $("#example1").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
+    var faqs_row = <?php echo count($listAnhSanPham); ?>;
+
+    function addfaqs() {
+        html = '<tr id="faqs-row-' + faqs_row + '">';
+        html += '<td><img src="./assets/dist/img/cry_1.png" style="width: 50px; height: 50px;" alt=""></td>';
+        html += '<td><input type="file" name="img_array[]" class="form-control"></td>';
+        html += '<td class="mt-10"><button type="button" class="badge badge-danger" onclick="removeRow(' + faqs_row + ', null);"><i class="fa fa-trash"></i> Delete</button></td>';
+
+        html += '</tr>';
+
+        $('#faqs tbody').append(html);  
+
+        faqs_row++;
+    }
+
+    function removeRow(rowId, imgId) {
+        $('#faqs-row-' + rowId).remove();
+        if (imgId !== null) {
+            var imgDeleteInput = document.getElementById('img_delete');
+            var currentValue = imgDeleteInput.value;
+            imgDeleteInput.value = currentValue ? currentValue + ',' + imgId : imgId;
+        }
+    }
 </script>
 <!-- Code injected by live-server -->
 

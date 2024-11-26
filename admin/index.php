@@ -45,7 +45,7 @@ match ($act) {
     'don-hang' => (new AdminDonHangController())->danhSachDonHang(),
     'form-sua-don-hang' => (new AdminDonHangController())->formEditDonHang(),
     'sua-don-hang' => (new AdminDonHangController())->postEditDonHang(),
-    // 'chi-tiet-don-hang' => (new AdminDonHangController())->detailDonHang(),
+    'chi-tiet-don-hang' => (new AdminDonHangController())->detailDonHang(),
 
     // thong ke
     '/' => (new AdminTaiKhoanController())->formLogin(),

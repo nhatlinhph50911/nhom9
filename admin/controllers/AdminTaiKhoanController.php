@@ -244,6 +244,11 @@ class AdminTaiKhoanController
             $passwords = $_POST['password'] ?? '';
             $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
+            $userOld = $this->modelTaiKhoan->getDetailTaiKhoan($id);
+            $old_file = $userOld['anh_dai_dien'];
+            // var_dump($userOld);
+            // die;
+            $anh_dai_dien = $_FILES['anh_dai_dien'] ?? null;
 
             $errors = [];
 
@@ -270,10 +275,21 @@ class AdminTaiKhoanController
             }
             $_SESSION['error'] = $errors;
 
+            if (isset($anh_dai_dien) && $anh_dai_dien['error'] == UPLOAD_ERR_OK) {
+                //upload ảnh mới lên
+                $new_file = uploadFile($anh_dai_dien, './uploads/');
+
+                if (!empty($old_file)) { //nếu có ảnh cũ thì xóa đi
+                    deleteFile($old_file);
+                }
+            } else {
+                $new_file = $old_file;
+            }
+
             if (empty($errors)) {
                 $password = password_hash($passwords, PASSWORD_BCRYPT);
                 // die;
-                $result = $this->modelTaiKhoan->updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id);
+                $result = $this->modelTaiKhoan->updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id, $new_file);
 
                 if ($result) {
                     header("location: " . BASE_URL_ADMIN . '?act=tai-khoan-ca-nhan');

@@ -136,18 +136,16 @@
                                                     </div>
                                                 </div>
                                             <?php endforeach ?>
-                                            <form action="#" class="review-form">
+                                            <form action="<?= BASE_URL . '?act=binh-luan'; ?>" method="POST">
                                                 <div class="form-group row">
                                                     <div class="col">
+                                                        <input type="hidden" name="id_san_pham" value="<?= $SanPham['id'] ?>">
                                                         <label class="col-form-label"><span class="text-danger">*</span>
                                                             bình luận</label>
-                                                        <textarea class="form-control" required></textarea>
-
+                                                        <textarea class="form-control" name="comment" placeholder="viết bình luận" required></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="buttons">
-                                                    <button class="btn btn-sqr" type="submit">Continue</button>
-                                                </div>
+                                                <button class="btn btn-sqr" type="submit">Đăng</button>
                                             </form> <!-- end of review-form -->
                                         </div>
                                     </div>

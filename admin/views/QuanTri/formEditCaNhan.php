@@ -46,6 +46,13 @@
                                     <p class="text-danger"> <?php echo $_SESSION['error']['ho_ten']; ?> </p>
                                 <?php endif ?>
                             </div>
+                            <div class="form-group col-6">
+                                <label>hình ảnh đại diện</label>
+                                <input type="file" class="form-control" name="anh_dai_dien" value="<?php echo $user['anh_dai_dien']; ?>" placeholder="nhap hình ảnh đại diện">
+                                <?php if (isset($_SESSION['error']['anh_dai_dien'])) { ?>
+                                    <p class="text-danger"> <?= $_SESSION['error']['anh_dai_dien'] ?> </p>
+                                <?php } ?>
+                            </div>
                             <div class="form-group">
                                 <label for="ngay_sinh">Ngày sinh</label>
                                 <input type="date" id="ngay_sinh" name="ngay_sinh" class="form-control" value="<?php echo $user['ngay_sinh']; ?>">

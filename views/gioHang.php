@@ -40,7 +40,7 @@
                                         <th class="pro-thumbnail">ảnh sản phẩm</th>
                                         <th class="pro-title">tên sản phẩm</th>
                                         <th class="pro-price">giá tiền</th>
-                                        <th class="pro-quantity">số laượng </th>
+                                        <th class="pro-quantity">số lượng </th>
                                         <th class="pro-subtotal">tổng tiền</th>
                                         <th class="pro-remove">thao tác</th>
                                     </tr>

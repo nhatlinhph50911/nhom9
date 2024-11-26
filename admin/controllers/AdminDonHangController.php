@@ -23,6 +23,8 @@ class AdminDonHangController
         //lấy danh sách sản phẩm đã đặt của đơn hàng ở bảng chi_tiet_don_hangs
         $sanPhamDonHang = $this->modelDonHang->getListSpDonHang($don_hang_id);
         $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
+        // var_dump($don_hang_id);
+        // die;
         require_once './views/DonHang/detailDonHang.php';
     }
 

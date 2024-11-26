@@ -146,7 +146,7 @@ class AdminTaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
-    public function updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id)
+    public function updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id, $new_file)
     {
         try {
             $sql = "UPDATE tai_khoans SET
@@ -157,7 +157,8 @@ class AdminTaiKhoan
                 email = :email,
                 so_dien_thoai = :so_dien_thoai,
                 mat_khau = :password,
-                trang_thai = :trang_thai
+                trang_thai = :trang_thai,
+                anh_dai_dien = :anh_dai_dien
                 WHERE id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -169,6 +170,7 @@ class AdminTaiKhoan
                 ':so_dien_thoai' => $so_dien_thoai,
                 ':password' => $password,
                 ':trang_thai' => $trang_thai,
+                ':anh_dai_dien' => $new_file,
                 ':id' => $id
             ]);
             return true;

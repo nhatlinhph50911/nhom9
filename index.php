@@ -41,4 +41,9 @@ match ($act) {
     'logout-client' => (new HomeController())->logoutClient(),
     'register' => (new HomeController())->registers(),
     'check-register' => (new HomeController())->postRegisters(),
+    'tai-khoan-client' => (new HomeController())->inforClient(),
+
+    //binh luan
+    'binh-luan' => (new HomeController())->postBinhLuan(),
+
 };

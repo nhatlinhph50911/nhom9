@@ -417,6 +417,5 @@
 
 
 <!-- offcanvas mini cart start -->
-<?php require_once 'layout/miniCart.php' ?>
 <!-- offcanvas mini cart end -->
 <?php require_once 'layout/footer.php'; ?>

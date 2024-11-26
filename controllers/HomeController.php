@@ -13,11 +13,13 @@ class HomeController
         $this->modelGioHang = new GioHang();
         $this->modelDonHang = new DonHang();
     }
+
     public function home()
     {
         $listSanPham = $this->modelSanPham->getAllProduct();
         $danhMucs = $this->modelSanPham->getAllDanhMuc();
-        // var_dump($danhMuc);
+        $_SESSION['danh_muc'] = $danhMucs;
+        // var_dump($_SESSION['danh_muc']);
         // die;
         require_once './views/home.php';
     }
@@ -64,7 +66,10 @@ class HomeController
             // die;
             if ($user == $email) {
                 // lưu thông tin vào session
-                $_SESSION['user_client'] = $user;
+                $userClient = $this->modelTaiKhoan->getTaiKhoanEmail($user);
+                $_SESSION['user_client'] = $userClient;
+                // var_dump($_SESSION['user_client']);
+                // die;
                 header("location: " . BASE_URL);
                 exit();
             } else {
@@ -84,15 +89,15 @@ class HomeController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_SESSION['user_client'])) {
-                $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+                $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
                 // var_dump($mail['id']);
                 // die;
                 $gioHang = $this->modelGioHang->getGioHangFromUser($mail['id']);
                 if (!$gioHang) {
                     $gioHangId = $this->modelGioHang->addGioHang($mail['id']);
                     $gioHang = ['id' => $gioHangId];
-                    var_dump($gioHang);
-                    die;
+                    // var_dump($gioHang);
+                    // die;
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
                 } else {
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
@@ -121,7 +126,7 @@ class HomeController
     {
         if ($_SESSION['user_client']) {
             if (isset($_SESSION['user_client'])) {
-                $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+                $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
                 // var_dump($mail['id']);
                 // die;
                 $gioHang = $this->modelGioHang->getGioHangFromUser($mail['id']);
@@ -146,7 +151,7 @@ class HomeController
     {
         if ($_SESSION['user_client']) {
             if (isset($_SESSION['user_client'])) {
-                $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+                $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
                 // var_dump($user['id']);
                 // die;
                 $gioHang = $this->modelGioHang->getGioHangFromUser($user['id']);
@@ -185,7 +190,7 @@ class HomeController
             $ngay_dat = Date("Y-m-d");
             // var_dump($ngay_dat);
             $trang_thai_id = 1;
-            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
             $tai_khoan_id = $user['id'];
             $ma_don_hang = 'DH' . rand(1000, 9999);
             $donHang = $this->modelDonHang->addDonHang(
@@ -250,7 +255,7 @@ class HomeController
     public function lichSuMuaHang()
     {
         if (isset($_SESSION['user_client'])) {
-            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']);
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
             $tai_khoan_id = $user['id'];
 
 
@@ -306,5 +311,29 @@ class HomeController
                 header("location: " . BASE_URL . '?act=register');
             }
         }
+    }
+    public function postBinhLuan()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_SESSION['user_client'])) {
+                $san_pham_id = $_POST['id_san_pham'];
+                $noi_dung_cmt = $_POST['comment'];
+                $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
+                $tai_khoan_id = $user['id'];
+                $ngay_dang = date("Y-m-d");
+                // var_dump($ngay_dang);
+                // die;
+                $this->modelTaiKhoan->addCmt($san_pham_id, $tai_khoan_id, $noi_dung_cmt, $ngay_dang);
+                header("location: " . BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $san_pham_id);
+            } else {
+                header("location: " . BASE_URL . '?act=login-client');
+            }
+        }
+    }
+    public function inforClient()
+    {
+
+        require_once './views/inforClient.php';
     }
 }

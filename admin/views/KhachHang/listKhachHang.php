@@ -34,8 +34,8 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>ảnh đại diện</th>
                                         <th>họ và tên</th>
+                                        <th>ảnh đại diện</th>
                                         <th>email</th>
                                         <th>số điện thoại</th>
                                         <th>Trạng thái</th>

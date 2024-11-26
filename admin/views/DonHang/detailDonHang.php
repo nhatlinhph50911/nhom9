@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h4>
-                                    <i class="fas fa-cat    "></i> Shop thú cưng Los Pollos Hermanos.
+                                    <i></i> Shop giày nike.
                                     <small class="float-right">Ngày đặt: <?php echo formatDate($donHang['ngay_dat']); ?></small>
                                 </h4>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="col-sm-4 invoice-col">
                                 <b>Mã đơn hàng: <?php echo $donHang['ma_don_hang']; ?></b><br>
                                 <br>
-                                <b>Tổng tiền:</b> <?php echo $donHang['tong_tien']; ?><br>
+                                <b>Tổng tiền:</b> <?php echo formatPrice($donHang['tong_tien']) ?>đ<br>
                                 <b>Ghi chú:</b> <?php echo $donHang['ghi_chu']; ?><br>
                                 <b>Thanh toán:</b> <?php echo $donHang['ten_phuong_thuc']; ?><br>
                             </div>
@@ -117,9 +117,9 @@
                                             <tr>
                                                 <td><?php echo $key + 1; ?></td>
                                                 <td><?php echo $sanPham['ten_san_pham']; ?></td>
-                                                <td><?php echo $sanPham['don_gia']; ?></td>
+                                                <td><?= formatPrice($sanPham['don_gia']) ?>đ</td>
                                                 <td><?php echo $sanPham['so_luong']; ?></td>
-                                                <td><?php echo $sanPham['thanh_tien']; ?></td>
+                                                <td><?php echo formatPrice($sanPham['thanh_tien']) ?>đ</td>
                                             </tr>
                                             <?php $tong_tien += $sanPham['thanh_tien']; ?>
                                         <?php endforeach ?>
@@ -141,15 +141,15 @@
                                     <table class="table">
                                         <tr>
                                             <th style="width:50%">Thành tiền:</th>
-                                            <td><?php echo $tong_tien; ?></td>
+                                            <td><?php echo formatPrice($tong_tien) ?>đ</td>
                                         </tr>
                                         <tr>
                                             <th>Vận chuyển:</th>
-                                            <td>200.000</td>
+                                            <td>20.000đ</td>
                                         </tr>
                                         <tr>
                                             <th>Tổng tiền:</th>
-                                            <td><?php echo $tong_tien + 200000; ?></td>
+                                            <td><?php echo formatPrice($tong_tien + 20000); ?>đ</td>
                                         </tr>
                                     </table>
                                 </div>

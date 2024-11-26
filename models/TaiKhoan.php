@@ -71,4 +71,20 @@ class TaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function addCmt($san_pham_id, $tai_khoan_id, $noi_dung_cmt, $ngay_dang)
+    {
+        try {
+            $sql = "INSERT INTO binh_luans (san_pham_id, tai_khoan_id, noi_dung, ngay_dang) VALUES (:san_pham_id, :tai_khoan_id, :noi_dung_cmt, :ngay_dang)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':san_pham_id' => $san_pham_id,
+                ':tai_khoan_id' => $tai_khoan_id,
+                ':noi_dung_cmt' => $noi_dung_cmt,
+                ':ngay_dang' => $ngay_dang
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }

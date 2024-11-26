@@ -13,7 +13,7 @@
                     <div class="col-lg-2">
                         <div class="logo">
                             <a href="<?= BASE_URL ?>">
-                                <img width="200px" height="100px" src="assets/img/logo/logo_nike.png" alt="Brand Logo">
+                                <img width="250px" height="100px" src="assets/img/logo/logo_nike.png" alt="Brand Logo">
                             </a>
                         </div>
                     </div>
@@ -27,11 +27,10 @@
                                 <nav class="desktop-menu">
                                     <ul>
                                         <li><a href="<?= BASE_URL ?>">Home </a>
-
                                         </li>
-                                        <li><a href="blog-left-sidebar.html">Sản Phảm<i class="fa fa-angle-down"></i></a>
+                                        <li><a href="#">Sản Phảm<i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown">
-                                                <?php foreach ($danhMucs as $danhMuc): ?>
+                                                <?php foreach ($_SESSION['danh_muc'] as $danhMuc): ?>
                                                     <li><a href="blog-left-sidebar.html"><?= $danhMuc['ten_danh_muc'] ?></a></li>
                                                 <?php endforeach ?>
                                             </ul>
@@ -60,7 +59,7 @@
                                 <ul class="nav justify-content-end">
                                     <label for="">
                                         <?php if (isset($_SESSION['user_client'])) {
-                                            echo $_SESSION['user_client'];
+                                            echo $_SESSION['user_client']['ho_ten'];
                                             // echo $clientUser['ho_ten'];
                                         } ?>
                                     </label>
@@ -73,7 +72,7 @@
                                                 <li><a href="<?= BASE_URL . '?act=login-client' ?>">Đăng nhập</a></li>
                                                 <li><a href="<?= BASE_URL . '?act=register' ?>">Đăng ký</a></li>
                                             <?php } else { ?>
-                                                <li><a href="#">Tài khoản</a></li>
+                                                <li><a href="<?= BASE_URL . '?act=tai-khoan-client' ?>">Tài khoản</a></li>
                                                 <li><a href="<?= BASE_URL . '?act=lich-su-mua-hang' ?>">lịch sử mua hàng</a></li>
                                                 <li><a href="<?= BASE_URL . '?act=logout-client' ?>">Đăng xuất</a></li>
                                             <?php } ?>
@@ -86,7 +85,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="minicart-btn">
+                                        <a href="<?= BASE_URL . '?act=gio-hang' ?>" class="minicart-btn">
                                             <i class="pe-7s-shopbag"></i>
                                             <div class="notification">2</div>
                                         </a>
