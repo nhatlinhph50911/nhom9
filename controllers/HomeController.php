@@ -146,14 +146,18 @@ class HomeController
                 } else {
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
                 }
-
+                // var_dump($chiTietGioHang);
+                // die;
                 require_once './views/gioHang.php';
             } else {
                 var_dump('loi');
                 die;
             }
         } else {
-            header("location: " . BASE_URL . '?act=login-client');
+            echo "<script>
+                alert('bạn chưa đăng nhập');
+                window.location.href = '" . BASE_URL . "?act=login-client';
+              </script>";
         }
     }
     public function thanhToan()
@@ -491,6 +495,35 @@ class HomeController
                     window.location.href = '" . BASE_URL . "?act=tai-khoan-client';
                     </script>";
                 }
+            }
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL . "?act=login-client';
+          </script>";
+        }
+    }
+    public function deleteGioHang()
+    {
+        if (isset($_SESSION['user_client'])) {
+            // var_dump($_SESSION['user_client']['id']);
+            // die;
+            $detailDH = $this->modelGioHang->getGioHangFromUser($_SESSION['user_client']['id']);
+            $id = $_GET['san_pham_id'];
+            // var_dump($id);
+            // var_dump($detailDH);
+            // die;
+            $result = $this->modelGioHang->clearDetailGioHangBySpId($id, $detailDH['id']);
+            if ($result) {
+                echo "<script>
+                alert('xóa giỏ hàng thành công');
+                window.location.href = '" . BASE_URL . "?act=gio-hang';
+                </script>";
+            } else {
+                echo "<script>
+                alert('xóa giỏ hàng không thành công');
+                window.location.href = '" . BASE_URL . "?act=gio-hang';
+                </script>";
             }
         } else {
             echo "<script>
