@@ -48,7 +48,7 @@ match ($act) {
     'chi-tiet-don-hang' => (new AdminDonHangController())->detailDonHang(),
 
     // thong ke
-    '/' => (new AdminTaiKhoanController())->formLogin(),
+    '/' => (new AdminThongKeController())->dashboard(),
 
     // quan ly tai khoan quan tri
     'list-tai-khoan-quan-tri' => (new AdminTaiKhoanController())->listQuanTri(),

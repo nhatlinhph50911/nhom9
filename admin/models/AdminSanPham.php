@@ -262,4 +262,28 @@ class adminSanPham
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function getAllCmt()
+    {
+        try {
+            $sql = "SELECT*FROM binh_luans";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function getAllSanPhamConBan($trang_thai)
+    {
+        try {
+            $sql = "SELECT*FROM san_phams WHERE trang_thai= :trang_thai";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                'trang_thai' => $trang_thai
+            ]);
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "loi" . $e->getMessage();
+        }
+    }
 }

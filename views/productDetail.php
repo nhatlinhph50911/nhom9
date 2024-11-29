@@ -56,9 +56,11 @@
                                         <a href="product-details.html"><?= $SanPham['ten_danh_muc'] ?></a>
                                     </div>
                                     <h3 class="product-name"><?= $SanPham['ten_san_pham'] ?></h3>
+
                                     <div class="ratings d-flex">
                                         <div class="pro-review">
                                             <?php $countCmt = count($listCmt); ?>
+                                            <span><?= $SanPham['luot_xem'] ?> lượt xem</span><br>
                                             <span><?= $countCmt . ' bình luận' ?></span>
                                         </div>
                                     </div>

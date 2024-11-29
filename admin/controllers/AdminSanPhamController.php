@@ -80,6 +80,8 @@ class AdminSanPhamController
             $_SESSION['error'] = $errors;
 
             if (empty($errors)) {
+                unset($_SESSION['error']);
+
                 $san_pham_id = $this->modelSanPham->insertSanPham($ten_san_pham, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $file_thumb);
                 // var_dump($san_pham_id);
                 // die;
@@ -195,6 +197,8 @@ class AdminSanPhamController
 
 
             if (empty($errors)) {
+                unset($_SESSION['error']);
+
                 //Nếu không có lỗi thì tiến hành sửa sản phẩm
                 $this->modelSanPham->updateSanPham($san_pham_id, $ten_san_pham, $gia_san_pham, $gia_khuyen_mai, $so_luong, $ngay_nhap, $danh_muc_id, $trang_thai, $mo_ta, $new_file);
                 // if ($san_pham_id && $sizes) {

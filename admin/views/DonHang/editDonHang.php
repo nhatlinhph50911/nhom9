@@ -79,7 +79,7 @@
                                     <select id="trang_thai_id" name="trang_thai_id" class="form-control custom-select">
                                         <?php foreach ($listTrangThaiDonHang as $trangThai) : ?>
                                             <option <?php
-                                                    if ($donHang['trang_thai_id'] > $trangThai['id'] || $donHang['trang_thai_id'] == 9 || $donHang['trang_thai_id'] == 10 || $donHang['trang_thai_id'] == 11) {
+                                                    if ($donHang['trang_thai_id'] > $trangThai['id'] || $donHang['trang_thai_id'] == 6 || $donHang['trang_thai_id'] == 7) {
                                                         echo 'disabled';
                                                     }
                                                     ?> <?php echo $trangThai['id'] == $donHang['trang_thai_id'] ? 'selected' : ''; ?> value="<?php echo $trangThai['id']; ?>">

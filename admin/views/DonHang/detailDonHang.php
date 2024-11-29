@@ -106,6 +106,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>size</th>
                                             <th>Đơn giá</th>
                                             <th>Số lượng</th>
                                             <th>Thành tiền</th>
@@ -117,6 +118,7 @@
                                             <tr>
                                                 <td><?php echo $key + 1; ?></td>
                                                 <td><?php echo $sanPham['ten_san_pham']; ?></td>
+                                                <td><?php echo $sanPham['size']; ?></td>
                                                 <td><?= formatPrice($sanPham['don_gia']) ?>đ</td>
                                                 <td><?php echo $sanPham['so_luong']; ?></td>
                                                 <td><?php echo formatPrice($sanPham['thanh_tien']) ?>đ</td>

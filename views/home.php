@@ -284,23 +284,30 @@
                         <div class="group-list-item-wrapper">
                             <div class="group-list-carousel">
                                 <!-- group list item start -->
-                                <div class="group-slide-item">
-                                    <div class="group-item">
-                                        <div class="group-item-thumb">
-                                            <a href="product-details.html">
-                                                <img src="assets/img/product/product-1.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="group-item-desc">
-                                            <h5 class="group-product-name"><a href="product-details.html">
-                                                    Diamond Exclusive ring</a></h5>
-                                            <div class="price-box">
-                                                <span class="price-regular">$50.00</span>
-                                                <span class="price-old"><del>$29.99</del></span>
+                                <?php foreach ($listSanPham as $key => $SanPham) {
+                                ?>
+                                    <div class="group-slide-item">
+                                        <div class="group-item">
+                                            <div class="group-item-thumb">
+                                                <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&' ?>">
+                                                    <img src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="group-item-desc">
+                                                <h5 class="group-product-name"><a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $SanPham['id']; ?>"><?= $SanPham['ten_san_pham'] ?></a></h5>
+                                                <div class="price-box">
+                                                    <?php if ($SanPham['gia_khuyen_mai']) { ?>
+                                                        <span class="price-regular"><?= formatPrice($SanPham['gia_khuyen_mai']) . 'đ' ?></span><br>
+                                                        <span class="price-old"><del><?= formatPrice($SanPham['gia_san_pham']) . 'đ' ?></del></span>
+                                                    <?php } else { ?>
+                                                        <span class="price-regular"><?= formatPrice($SanPham['gia_san_pham']) . 'đ' ?></span>
+                                                    <?php } ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php
+                                } ?>
                                 <!-- group list item end -->
                             </div>
                         </div>
@@ -325,7 +332,7 @@
                                         <div class="group-slide-item">
                                             <div class="group-item">
                                                 <div class="group-item-thumb">
-                                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&' ?>">
+                                                    <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $SanPham['id']; ?>">
                                                         <img src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
                                                     </a>
                                                 </div>
@@ -351,65 +358,7 @@
     </section>
     <!-- group product end -->
 
-    <!-- latest blog area start -->
-    <section class="latest-blog-area section-padding pt-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- section title start -->
-                    <div class="section-title text-center">
-                        <h2 class="title">latest blogs</h2>
-                        <p class="sub-title">There are latest blog posts</p>
-                    </div>
-                    <!-- section title start -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="blog-carousel-active slick-row-10 slick-arrow-style">
 
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img4.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">People are Willing Lie When Comes Money, According to Research</a>
-                                </h5>
-                            </div>
-                        </div>
-                        <!-- blog post item end -->
-
-                        <!-- blog post item start -->
-                        <div class="blog-post-item">
-                            <figure class="blog-thumb">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/blog/blog-img5.jpg" alt="blog image">
-                                </a>
-                            </figure>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <p>25/03/2019 | <a href="#">Corano</a></p>
-                                </div>
-                                <h5 class="blog-title">
-                                    <a href="blog-details.html">romantic Love Stories Of Hollywoodâ€™s Biggest Celebrities</a>
-                                </h5>
-                            </div>
-                        </div>
-                        <!-- blog post item end -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- latest blog area end -->
 </main>
 
 

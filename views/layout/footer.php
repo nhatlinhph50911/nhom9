@@ -13,13 +13,11 @@
                         <div class="widget-title">
                             <div class="widget-logo">
                                 <a href="index.html">
-                                    <img src="assets/img/logo/logo.png" alt="brand logo">
+                                    <img width="250px" height="150px" src="assets/img/logo/logo_nike.png" alt="brand logo">
                                 </a>
                             </div>
                         </div>
-                        <div class="widget-body">
-                            <p>We are a team of designers and developers that create high quality wordpress, shopify, Opencart </p>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -28,9 +26,9 @@
                         <div class="widget-body">
                             <address class="contact-block">
                                 <ul>
-                                    <li><i class="pe-7s-home"></i> 4710-4890 Breckinridge USA</li>
-                                    <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">demo@yourdomain.com </a></li>
-                                    <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">(012) 800 456 789-987</a></li>
+                                    <li><i class="pe-7s-home"></i> Trịnh Văn Bô-Nam Từ Liêm</li>
+                                    <li><i class="pe-7s-mail"></i> <a href="mailto:demo@plazathemes.com">linhpnph50911@gmail.com </a></li>
+                                    <li><i class="pe-7s-call"></i> <a href="tel:(012)800456789987">0363446605</a></li>
                                 </ul>
                             </address>
                         </div>
@@ -88,17 +86,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="copyright-text text-center">
-                        <p>&copy; 2022 <b>Corano</b> Made with <i class="fa fa-heart text-danger"></i> by <a href="https://hasthemes.com/"><b>HasThemes</b></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </footer>
 <!-- footer area end -->
 <!-- JS

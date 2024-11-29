@@ -87,4 +87,47 @@ class TaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function getDetailTaiKhoan($id)
+    {
+        try {
+            $sql = "SELECT * FROM tai_khoans WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function updateCaNhanClient($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $id, $new_file, $trang_thai, $chuc_vu_id)
+    {
+        try {
+            $sql = "UPDATE tai_khoans SET
+                ho_ten = :ho_ten,
+                ngay_sinh = :ngay_sinh,
+                gioi_tinh = :gioi_tinh,
+                dia_chi = :dia_chi,
+                email = :email,
+                so_dien_thoai = :so_dien_thoai,
+                anh_dai_dien = :anh_dai_dien,
+                trang_thai = :trang_thai,
+                chuc_vu_id = :chuc_vu_id
+                WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':ho_ten' => $ho_ten,
+                ':ngay_sinh' => $ngay_sinh,
+                ':gioi_tinh' => $gioi_tinh,
+                ':dia_chi' => $dia_chi,
+                ':email' => $email,
+                ':so_dien_thoai' => $so_dien_thoai,
+                ':anh_dai_dien' => $new_file,
+                ':trang_thai' => $trang_thai,
+                ':chuc_vu_id' => $chuc_vu_id,
+                ':id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }

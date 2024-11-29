@@ -23,7 +23,8 @@ class AdminDonHangController
         //lấy danh sách sản phẩm đã đặt của đơn hàng ở bảng chi_tiet_don_hangs
         $sanPhamDonHang = $this->modelDonHang->getListSpDonHang($don_hang_id);
         $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
-        // var_dump($don_hang_id);
+        // $size= $this->modelDonHang->getSizeSPDonHang()
+        // var_dump($sanPhamDonHang);
         // die;
         require_once './views/DonHang/detailDonHang.php';
     }
@@ -37,6 +38,7 @@ class AdminDonHangController
         // var_dump($donHang);
         // die;
         $listTrangThaiDonHang = $this->modelDonHang->getAllTrangThaiDonHang();
+
         if ($donHang) {
             require_once './views/DonHang/editDonHang.php';
             deleteSessionError();
@@ -53,14 +55,32 @@ class AdminDonHangController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //lấy ra dữ liệu
             $don_hang_id = $_POST['don_hang_id'] ?? '';
-
-
             $ten_nguoi_nhan = $_POST['ten_nguoi_nhan'] ?? '';
             $sdt_nguoi_nhan = $_POST['sdt_nguoi_nhan'] ?? '';
             $email_nguoi_nhan = $_POST['email_nguoi_nhan'] ?? '';
             $dia_chi_nguoi_nhan = $_POST['dia_chi_nguoi_nhan'] ?? '';
             $ghi_chu = $_POST['ghi_chu'] ?? '';
             $trang_thai_id = $_POST['trang_thai_id'] ?? '';
+
+            //lay chitietdonhang
+            // $chi_tiet_DH = $this->modelDonHang->getChiTietDonHang($don_hang_id);
+            // var_dump($don_hang_id);
+            // var_dump($chi_tiet_DH);
+            // die;
+            // if ($trang_thai_id != 1) {
+            //     foreach ($chi_tiet_DH as $item) {
+            //         // var_dump($item['san_pham_id']);
+            //         $san_pham = $this->modelDonHang->getSpById($item['san_pham_id']);
+            //         // $new_so_luong = $item['so_luong'] - $san_pham['so_luong'];
+            //         // $so_luong_sp = $san_pham['so_luong'];
+            //         var_dump($item['so_luong']);
+            //         var_dump($san_pham[6]['so_luong']);
+            //         // var_dump($new_so_luong);
+            //         die;
+            //     }
+            //     die;
+            // }
+            // $san_pham = $this->get
 
             //tạo 1 mảng trống để chứa dữ liệu
             $errors = [];
@@ -82,9 +102,12 @@ class AdminDonHangController
 
             $_SESSION['error'] = $errors;
 
-
+            if ($trang_thai_id != 1) {
+            }
             if (empty($errors)) {
                 //Nếu không có lỗi thì tiến hành sửa
+                unset($_SESSION['error']);
+
                 $this->modelDonHang->updateDonHang($don_hang_id, $ten_nguoi_nhan, $sdt_nguoi_nhan, $email_nguoi_nhan, $dia_chi_nguoi_nhan, $ghi_chu, $trang_thai_id);
                 header("Location: " . BASE_URL_ADMIN . '?act=don-hang');
                 exit();

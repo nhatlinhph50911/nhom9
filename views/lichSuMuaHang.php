@@ -15,8 +15,8 @@
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="shop.html">shop</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">cart</li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">lịch sử mua hàng</li>
                             </ul>
                         </nav>
                     </div>
@@ -53,7 +53,12 @@
                                             <td><?= formatPrice($donHang['tong_tien']) ?>đ</td>
                                             <td><?= $donHang['ten_phuong_thuc'] ?></td>
                                             <td><?= $donHang['ten_trang_thai'] ?></td>
-                                            <td><?= $donHang['ma_don_hang'] ?></td>
+                                            <td>
+                                                <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>"><button class="btn btn-sqr">chi tiết</button></a>
+                                                <?php if ($donHang['trang_thai_id'] == 1): ?>
+                                                    <a href="<?= BASE_URL . '?act=huy-don-hang&id=' . $donHang['id'] ?>" onclick="return confirm('xác nhận hủy đơn hàng')"><button class="btn btn-sqr">Hủy đơn</button></a>
+                                                <?php endif ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

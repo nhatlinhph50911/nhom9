@@ -52,57 +52,64 @@
                                             <div class="myaccount-content">
                                                 <h5>Account Details</h5>
                                                 <div class="account-details-form">
-                                                    <form action="#">
+                                                    <form action="<?= BASE_URL . '?act=edit-client' ?>" method="POST" enctype="multipart/form-data">
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="first-name" class="required">Họ tên</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
+                                                                    <label for="ho_ten" class="required">Họ tên</label>
+                                                                    <input type="text" id="ho_ten" placeholder="First Name" value="<?= $_SESSION['user_client']['ho_ten'] ?>" name="ho_ten" required />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="last-name" class="required">ảnh đại diện</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
+                                                                    <label for="anh_dai_dien" class="required">ảnh đại diện</label>
+                                                                    <input type="file" class="form-control" name="anh_dai_dien" value="<?php echo $_SESSION['user_client']['anh_dai_dien']; ?>" placeholder="nhap hình ảnh đại diện">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="first-name" class="required">ngày sinh</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
+                                                                    <label for="ngay_sinh" class="required">ngày sinh</label>
+                                                                    <input type="date" id="ngay_sinh" placeholder="First Name" value="<?= $_SESSION['user_client']['ngay_sinh'] ?>" name="ngay_sinh" required />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="last-name" class="required">địa chỉ</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
+                                                                    <label for="dia_chi" class="required">địa chỉ</label>
+                                                                    <input type="text" id="dia_chi" placeholder="Last Name" value="<?= $_SESSION['user_client']['dia_chi'] ?>" name="dia_chi" required />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="first-name" class="required">số điện thoại</label>
-                                                                    <input type="text" id="first-name" placeholder="First Name" />
+                                                                    <label for="so_dien_thoai" class="required">số điện thoại</label>
+                                                                    <input type="text" id="so_dien_thoai" placeholder="First Name" value="<?= $_SESSION['user_client']['so_dien_thoai'] ?>" name="so_dien_thoai" required />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                    <label for="last-name" class="required">giới tính</label>
-                                                                    <input type="text" id="last-name" placeholder="Last Name" />
+                                                                    <label for="gioi_tinh" class="required">giới tính</label>
+                                                                    <select id="gioi_tinh" name="gioi_tinh" class="form-control custom-select">
+                                                                        <option <?php echo $_SESSION['user_client']['gioi_tinh'] == 1 ? 'selected' : ''; ?> value="1">Nam</option>
+                                                                        <option <?php echo $_SESSION['user_client']['gioi_tinh'] == 2 ? 'selected' : ''; ?> value="2">Nữ</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-12">
                                                             <div class="single-input-item">
-                                                                <label for="last-name" class="required">email</label>
-                                                                <input type="text" id="last-name" placeholder="Last Name" />
+                                                                <label for="email" class="required">email</label>
+                                                                <input type="email" id="email" placeholder="Last Name" value="<?= $_SESSION['user_client']['email'] ?>" name="email" required />
                                                             </div>
                                                         </div>
+                                                        <div class="single-input-item">
+                                                            <button type="submit" class="btn btn-sqr">Save Changes</button>
+                                                        </div>
+                                                    </form>
 
-
+                                                    <form action="#">
                                                         <fieldset>
                                                             <legend>Password change</legend>
                                                             <div class="single-input-item">

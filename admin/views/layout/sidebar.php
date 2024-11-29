@@ -11,7 +11,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <?php if (isset($_SESSION['user_admin'])) { ?>
                 <div class="image">
-                    <img src="./assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="<?= BASE_URL . $_SESSION['user_admin']['anh_dai_dien'] ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Admin</a>

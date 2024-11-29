@@ -84,13 +84,7 @@
                                     <p class="text-danger"> <?php echo $_SESSION['error']['email']; ?> </p>
                                 <?php endif ?>
                             </div>
-                            <div class="form-group">
-                                <label for="password">password</label>
-                                <input type="text" id="password" name="password" class="form-control" value="<?php echo $user['mat_khau']; ?>">
-                                <?php if (isset($_SESSION['error']['password'])) : ?>
-                                    <p class="text-danger"> <?php echo $_SESSION['error']['password']; ?> </p>
-                                <?php endif ?>
-                            </div>
+
                             <div class="form-group">
                                 <label for="so_dien_thoai">số điện thoại</label>
                                 <input type="text" id="so_dien_thoai" name="so_dien_thoai" class="form-control" value="<?php echo $user['so_dien_thoai']; ?>">

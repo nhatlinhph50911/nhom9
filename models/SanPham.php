@@ -80,4 +80,18 @@ class SanPham
             echo "Lỗi: " . $e->getMessage();
         }
     }
+    public function updateView($new_view, $id)
+    {
+        try {
+            $sql = "UPDATE san_phams SET luot_xem = :luot_xem WHERE id= :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                'luot_xem' => $new_view,
+                'id' => $id
+            ]);
+            return $stmt->fetchAll(); // Lấy tất cả các dòng kết quả
+        } catch (Exception $e) {
+            echo "Lỗi: " . $e->getMessage();
+        }
+    }
 }

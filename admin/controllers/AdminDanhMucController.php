@@ -6,7 +6,6 @@ class AdminDanhMucController
     public function __construct()
     {
         $this->modelDanhMuc = new adminDanhMuc();
-        
     }
     public function DanhSachDanhMuc()
     {
@@ -33,6 +32,7 @@ class AdminDanhMucController
             $_SESSION['error'] = $errors;
 
             if (empty($errors)) {
+                unset($_SESSION['error']);
                 $this->modelDanhMuc->insertDanhMuc($ten_danh_muc, $mo_ta);
                 header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
                 exit();
@@ -65,6 +65,8 @@ class AdminDanhMucController
                 $errors['ten_danh_muc'] = 'tên danh mục không được để trống';
             }
             if (empty($errors)) {
+                unset($_SESSION['error']);
+
                 $this->modelDanhMuc->updateDanhMuc($ten_danh_muc, $mo_ta, $id);
                 header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
                 exit();

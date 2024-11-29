@@ -34,6 +34,8 @@ class AdminTaiKhoanController
             $_SESSION['error'] = $errors;
 
             if (empty($errors)) {
+                unset($_SESSION['error']);
+
                 $chuc_vu_id = 1;
                 $password = password_hash('24092005', PASSWORD_BCRYPT);
                 $result = $this->modelTaiKhoan->insertQuanTri($ho_ten, $email, $password, $chuc_vu_id);
@@ -90,6 +92,8 @@ class AdminTaiKhoanController
                 $result = $this->modelTaiKhoan->updateQuanTri($ho_ten, $email, $so_dien_thoai, $password, $trang_thai, $id);
 
                 if ($result) {
+                    unset($_SESSION['error']);
+
                     header("location: " . BASE_URL_ADMIN . '?act=list-tai-khoan-quan-tri');
                     exit();
                 } else {
@@ -144,6 +148,8 @@ class AdminTaiKhoanController
                 $result = $this->modelTaiKhoan->updateKhachHang($ho_ten, $email, $so_dien_thoai, $password, $trang_thai, $id);
 
                 if ($result) {
+                    unset($_SESSION['error']);
+
                     header("location: " . BASE_URL_ADMIN . '?act=list-tai-khoan-khach-hang');
                     exit();
                 } else {
@@ -158,8 +164,17 @@ class AdminTaiKhoanController
     }
     public function formLogin()
     {
-        require_once './views/auth/formLogin.php';
-        deleteSessionError();
+        // var_dump($_SESSION['user_admin']);
+        // die;
+        if (isset($_SESSION['user_admin'])) {
+            echo "<script>
+                alert('bạn đã đăng nhập trước đó rồi');
+                window.location.href = '" . BASE_URL_ADMIN . "?act=danh-muc';
+              </script>";
+        } else {
+            require_once './views/auth/formLogin.php';
+            deleteSessionError();
+        }
     }
     public function login()
     {
@@ -177,7 +192,11 @@ class AdminTaiKhoanController
             // die;
             if ($user == $email) {
                 // lưu thông tin vào session
-                $_SESSION['user_admin'] = $user;
+                // var_dump($user);
+                // die;
+                $_SESSION['user_admin'] = $this->modelTaiKhoan->getTaiKhoanEmail($user);
+
+                unset($_SESSION['error']);
                 header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
                 exit();
             } else {
@@ -205,7 +224,7 @@ class AdminTaiKhoanController
     public function inforCaNhan()
     {
         if (isset($_SESSION['user_admin'])) {
-            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_admin']);
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_admin']['email']);
             // var_dump($user);
             // die;
             require_once './views/QuanTri/taiKhoanCaNhan.php';
@@ -241,7 +260,7 @@ class AdminTaiKhoanController
             $gioi_tinh = $_POST['gioi_tinh'] ?? '';
             $dia_chi = $_POST['dia_chi'] ?? '';
             $email = $_POST['email'] ?? '';
-            $passwords = $_POST['password'] ?? '';
+            // $passwords = $_POST['password'] ?? '';
             $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
             $trang_thai = $_POST['trang_thai'] ?? '';
             $userOld = $this->modelTaiKhoan->getDetailTaiKhoan($id);
@@ -287,11 +306,16 @@ class AdminTaiKhoanController
             }
 
             if (empty($errors)) {
-                $password = password_hash($passwords, PASSWORD_BCRYPT);
+                // $password = password_hash($passwords, PASSWORD_BCRYPT);
                 // die;
-                $result = $this->modelTaiKhoan->updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $password, $trang_thai, $id, $new_file);
+                $result = $this->modelTaiKhoan->updateCaNhan($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $trang_thai, $id, $new_file);
 
                 if ($result) {
+                    unset($_SESSION['error']);
+                    $_SESSION['user_admin'] = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_admin']['email']);
+                    // var_dump($_SESSION['user_admin']);
+                    // die;
+
                     header("location: " . BASE_URL_ADMIN . '?act=tai-khoan-ca-nhan');
                     exit();
                 } else {

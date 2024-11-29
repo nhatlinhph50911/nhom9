@@ -38,6 +38,12 @@ class HomeController
         $listAnhSP = $this->modelSanPham->getListAnhSanPham($id);
         $listCmt = $this->modelSanPham->getListCmtSp($id);
         $sizes = $this->modelSanPham->getSizeById($id);
+        if (isset($_SESSION['user_client'])) {
+            // $SanPham['luot_xem'] += 1;
+            $new_view = $SanPham['luot_xem'] + 1;
+            // var_dump($SanPham['luot_xem']);
+            $this->modelSanPham->updateView($new_view, $SanPham['id']);
+        }
         // var_dump($SanPham);
         // var_dump($sizes);
         // var_dump($listAnhSP);
@@ -87,8 +93,9 @@ class HomeController
     }
     public function addGioHang()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (isset($_SESSION['user_client'])) {
+        if (isset($_SESSION['user_client'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
                 $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
                 // var_dump($mail['id']);
                 // die;
@@ -116,10 +123,12 @@ class HomeController
                     $this->modelGioHang->addDetailGH($gioHang['id'], $san_pham_id, $so_luong);
                 }
                 header("location: " . BASE_URL . '?act=gio-hang');
-            } else {
-                header("location: " . BASE_URL . '?act=login-client');
-                // die;
             }
+        } else {
+            echo "<script>
+                alert('bạn chưa đăng nhập');
+                window.location.href = '" . BASE_URL . "?act=login-client';
+              </script>";
         }
     }
     public function gioHang()
@@ -171,7 +180,10 @@ class HomeController
                 die;
             }
         } else {
-            header("location: " . BASE_URL . '?act=/');
+            echo "<script>
+                alert('bạn chưa đăng nhập');
+                window.location.href = '" . BASE_URL . "?act=login-client';
+              </script>";
         }
     }
     public function postThanhToan()
@@ -333,7 +345,158 @@ class HomeController
     }
     public function inforClient()
     {
+        // var_dump($_SESSION['user_client']);
+        // die;
+        if (isset($_SESSION['user_client'])) {
+            // var_dump($_SESSION['user_client']['gioi_tinh']);
+            // die;
+            require_once './views/inforClient.php';
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL . "?act=login-client';
+          </script>";
+        }
+    }
+    public function huyDonHang()
+    {
+        if (isset($_SESSION['user_client'])) {
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
+            // var_dump($user);
+            // die;
+            $tai_khoan_id = $user['id'];
+            $don_hang_id = $_GET['id'];
 
-        require_once './views/inforClient.php';
+            $donHang = $this->modelDonHang->getDonHangById($don_hang_id);
+            // var_dump($donHang);
+            // var_dump($donHang['trang_thai_id']);
+            // die;
+            if ($donHang['trang_thai_id'] != 1) {
+                echo "<script>
+                alert('chỉ đơn hàng chưa xác nhận mới có thể hủy');
+                window.location.href = '" . BASE_URL . "?act=lich-su-mua-hang';
+              </script>";
+                exit;
+            }
+            $result = $this->modelDonHang->updateTrangThaiDonHang($don_hang_id, 6);
+            if ($result) {
+                echo "<script>
+                alert('Hủy thành công');
+                window.location.href = '" . BASE_URL . "?act=lich-su-mua-hang';
+              </script>";
+            } else {
+                echo "<script>
+                alert('Lỗi');
+                window.location.href = '" . BASE_URL . "?act=lich-su-mua-hang';
+              </script>";
+            }
+        } else {
+            echo "<script>
+                alert('bạn chưa đăng nhập');
+                window.location.href = '" . BASE_URL . "?act=login-client';
+              </script>";
+        }
+    }
+    public function chiTietDonHang()
+    {
+        if ($_SESSION['user_client']) {
+            $tai_khoan_id = $_SESSION['user_client']['id'];
+            $don_hang_id = $_GET['id'];
+
+            $donHang = $this->modelDonHang->getDetailDonHangById($don_hang_id);
+            // var_dump($donHang);
+            // die;
+            $chiTietDonHang = $this->modelDonHang->getChiTietDonHangId($don_hang_id);
+            // var_dump($chiTietDonHang);
+            // die;
+            require_once './views/chiTietMuaHang.php';
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL . "?act=login-client';
+          </script>";
+        }
+    }
+    public function postEditClient()
+    {
+        if (isset($_SESSION['user_client'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $id = $_SESSION['user_client']['id'];
+                $ho_ten = $_POST['ho_ten'] ?? '';
+                $ngay_sinh = $_POST['ngay_sinh'] ?? '';
+                $gioi_tinh = $_POST['gioi_tinh'] ?? '';
+                $dia_chi = $_POST['dia_chi'] ?? '';
+                $email = $_POST['email'] ?? '';
+                // $passwords = $_POST['password'] ?? '';
+                $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
+                $userOld = $this->modelTaiKhoan->getDetailTaiKhoan($id);
+                $old_file = $userOld['anh_dai_dien'];
+
+                $anh_dai_dien = $_FILES['anh_dai_dien'] ?? null;
+                // var_dump($ho_ten);
+                // var_dump($ngay_sinh);
+                // var_dump($gioi_tinh);
+                // var_dump($dia_chi);
+                // var_dump($email);
+                // var_dump($so_dien_thoai);
+                // // var_dump($anh_dai_dien);
+                // die;
+                $errors = [];
+
+                if (isset($anh_dai_dien) && $anh_dai_dien['error'] == UPLOAD_ERR_OK) {
+                    //upload ảnh mới lên
+                    $new_file = uploadFile($anh_dai_dien, './uploads/');
+
+                    if (!empty($old_file)) { //nếu có ảnh cũ thì xóa đi
+                        deleteFile($old_file);
+                    }
+                } else {
+                    $new_file = $old_file;
+                }
+
+                // var_dump($new_file);
+                // die;
+                if (empty($errors)) {
+                    // $password = password_hash($passwords, PASSWORD_BCRYPT);
+                    // die;
+                    // var_dump($ho_ten);
+                    // var_dump($ngay_sinh);
+                    // var_dump($gioi_tinh);
+                    // var_dump($dia_chi);
+                    // var_dump($email);
+                    // var_dump($so_dien_thoai);
+                    // var_dump($new_file);
+                    // var_dump($id);
+                    // die;
+                    $result = $this->modelTaiKhoan->updateCaNhanClient($ho_ten, $ngay_sinh, $gioi_tinh, $dia_chi, $email, $so_dien_thoai, $id, $new_file, 1, 2);
+
+                    if ($result) {
+                        $_SESSION['user_client'] = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
+                        // var_dump($_SESSION['user_client']);
+                        // die;
+                        echo "<script>
+                        alert('thay đổi thành công');
+                        window.location.href = '" . BASE_URL . "?act=tai-khoan-client';
+                        </script>";
+                        exit();
+                    } else {
+                        echo "Lỗi: Dữ liệu không được thêm vào cơ sở dữ liệu.";
+                        exit();
+                    }
+                } else {
+
+                    $_SESSION['flash'] = true;
+                    echo "<script>
+                    alert('sửa thất bại');
+                    window.location.href = '" . BASE_URL . "?act=tai-khoan-client';
+                    </script>";
+                }
+            }
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL . "?act=login-client';
+          </script>";
+        }
     }
 }

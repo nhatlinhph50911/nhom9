@@ -32,8 +32,8 @@ match ($act) {
     'thanh-toan' => (new HomeController())->thanhToan(),
     'xu-li-thanh-toan' => (new HomeController())->postThanhToan(),
     'lich-su-mua-hang' => (new HomeController())->lichSuMuaHang(),
-    // 'chi-tiet-mua-hang' => (new HomeController())->chiTietMuaHang(),
-    // 'huy-don-hang' => (new HomeController())->postThanhToan(),
+    'chi-tiet-don-hang' => (new HomeController())->chiTietDonHang(),
+    'huy-don-hang' => (new HomeController())->huyDonHang(),
 
     // auth
     'login-client' => (new HomeController())->formLogin(),
@@ -42,8 +42,8 @@ match ($act) {
     'register' => (new HomeController())->registers(),
     'check-register' => (new HomeController())->postRegisters(),
     'tai-khoan-client' => (new HomeController())->inforClient(),
+    'edit-client' => (new HomeController())->postEditClient(),
 
     //binh luan
     'binh-luan' => (new HomeController())->postBinhLuan(),
-
 };
