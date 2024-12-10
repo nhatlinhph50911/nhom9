@@ -24,9 +24,10 @@ class GioHang
     public function getDetailGioHang($id)
     {
         try {
-            $sql = 'SELECT chi_tiet_gio_hangs.*, san_phams.ten_san_pham, san_phams.hinh_anh, san_phams.gia_san_pham, san_phams.gia_khuyen_mai
+            $sql = 'SELECT chi_tiet_gio_hangs.*, san_phams.ten_san_pham, san_phams.hinh_anh, san_phams.gia_san_pham, san_phams.gia_khuyen_mai, kich_cos.size
                     FROM chi_tiet_gio_hangs 
                     INNER JOIN san_phams ON chi_tiet_gio_hangs.san_pham_id = san_phams.id
+                    INNER JOIN kich_cos ON chi_tiet_gio_hangs.kich_co_id = kich_cos.id
                     WHERE chi_tiet_gio_hangs.gio_hang_id =  :gio_hang_id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
@@ -78,16 +79,17 @@ class GioHang
             echo "loi" . $e->getMessage();
         }
     }
-    public function addDetailGH($gio_hang_id, $san_pham_id, $so_luong)
+    public function addDetailGH($gio_hang_id, $san_pham_id, $so_luong, $size)
     {
         try {
-            $sql = 'INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong)
-                    VALUES (:gio_hang_id, :san_pham_id, :so_luong) ';
+            $sql = 'INSERT INTO chi_tiet_gio_hangs (gio_hang_id, san_pham_id, so_luong, kich_co_id)
+                    VALUES (:gio_hang_id, :san_pham_id, :so_luong, :kich_co_id)';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':so_luong' => $so_luong,
                 ':san_pham_id' => $san_pham_id,
-                ':gio_hang_id' => $gio_hang_id
+                ':gio_hang_id' => $gio_hang_id,
+                ':kich_co_id' => $size
             ]);
             return true;
         } catch (Exception $e) {

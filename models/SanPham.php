@@ -58,7 +58,7 @@ class SanPham
     public function getSizeById($id)
     {
         try {
-            $sql = "SELECT kich_cos.size
+            $sql = "SELECT kich_co_san_phams.*, kich_cos.size
                 FROM kich_co_san_phams
                 INNER JOIN kich_cos ON kich_co_san_phams.kich_co_id = kich_cos.id
                 WHERE kich_co_san_phams.san_pham_id = :san_pham_id";
@@ -90,6 +90,20 @@ class SanPham
                 'id' => $id
             ]);
             return $stmt->fetchAll(); // Lấy tất cả các dòng kết quả
+        } catch (Exception $e) {
+            echo "Lỗi: " . $e->getMessage();
+        }
+    }
+    public function updateSoLuongSP($san_pham_id, $so_luong_update)
+    {
+        try {
+            $sql = "UPDATE san_phams SET so_luong = so_luong - :so_luong_update WHERE id= :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                'so_luong_update' => $so_luong_update,
+                'id' => $san_pham_id
+            ]);
+            return true; // Lấy tất cả các dòng kết quả
         } catch (Exception $e) {
             echo "Lỗi: " . $e->getMessage();
         }

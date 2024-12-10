@@ -40,6 +40,7 @@ match ($act) {
     'sua-album-anh-san-pham' => (new AdminSanPhamController())->postEditAnhSanPham(),
     'chi-tiet-san-pham' => (new AdminSanPhamController())->detailSanPham(),
     'xoa-san-pham' => (new AdminSanPhamController())->deleteSanPham(),
+    'xoa-comment' => (new AdminSanPhamController())->deleteComment(),
 
     // don hang
     'don-hang' => (new AdminDonHangController())->danhSachDonHang(),

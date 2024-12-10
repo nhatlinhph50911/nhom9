@@ -314,4 +314,23 @@ class AdminSanPhamController
             exit();
         }
     }
+    public function deleteComment()
+    {
+        if (isset($_SESSION['user_admin'])) {
+            $id = $_GET['id_comment'];
+            $Cmt = $this->modelSanPham->getCmtById($id);
+            // var_dump($Cmt);
+            // die;
+            $this->modelSanPham->deleteComment($id);
+            echo "<script>
+            alert('xoa thành công');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=san-pham';
+          </script>";
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=login-admin';
+          </script>";
+        }
+    }
 }

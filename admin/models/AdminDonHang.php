@@ -10,7 +10,7 @@ class AdminDonHang
     public function getAllDonHang()
     {
         try {
-            $sql = "SELECT don_hangs.*, trang_thai_don_hangs.ten_trang_thai FROM don_hangs INNER JOIN trang_thai_don_hangs ON don_hangs.trang_thai_id = trang_thai_don_hangs.id";
+            $sql = "SELECT don_hangs.*, trang_thai_don_hangs.ten_trang_thai FROM don_hangs INNER JOIN trang_thai_don_hangs ON don_hangs.trang_thai_id = trang_thai_don_hangs.id ORDER BY id DESC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -123,11 +123,29 @@ class AdminDonHang
     public function getAllDetailDH()
     {
         try {
-            $sql = "SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham, san_phams.gia_san_pham, san_phams.hinh_anh
+            $sql = "SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham, san_phams.gia_san_pham, san_phams.hinh_anh, don_hangs.trang_thai_id
             FROM chi_tiet_don_hangs
-            INNER JOIN san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id";
+            INNER JOIN san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id
+            INNER JOIN don_hangs ON chi_tiet_don_hangs.don_hang_id = don_hangs.id";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
+    public function getDonHangId($san_pham_id)
+    {
+        try {
+            $sql = "SELECT chi_tiet_don_hangs.*, san_phams.ten_san_pham, san_phams.gia_san_pham, san_phams.hinh_anh, don_hangs.trang_thai_id
+            FROM chi_tiet_don_hangs
+            INNER JOIN san_phams ON chi_tiet_don_hangs.san_pham_id = san_phams.id
+            INNER JOIN don_hangs ON chi_tiet_don_hangs.don_hang_id = don_hangs.id
+            WHERE san_pham_id= :san_pham_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':san_pham_id' => $san_pham_id
+            ]);
             return $stmt->fetchAll();
         } catch (Exception $e) {
             echo "Lỗi" . $e->getMessage();

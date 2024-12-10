@@ -44,18 +44,19 @@ class DonHang
             echo "loi" . $e->getMessage();
         }
     }
-    public function addChiTietDonHang($donHangId, $sanPhamId, $donGia, $soLuong, $thanhTien)
+    public function addChiTietDonHang($donHangId, $sanPhamId, $donGia, $soLuong, $thanhTien, $kichCo)
     {
         try {
-            $sql = "INSERT INTO chi_tiet_don_hangs (don_hang_id, san_pham_id, don_gia, so_luong, thanh_tien)
-            VALUES (:don_hang_id, :san_pham_id, :don_gia, :so_luong, :thanh_tien)";
+            $sql = "INSERT INTO chi_tiet_don_hangs (don_hang_id, san_pham_id, don_gia, so_luong, thanh_tien, kich_co_id)
+            VALUES (:don_hang_id, :san_pham_id, :don_gia, :so_luong, :thanh_tien, :kich_co_id)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':don_hang_id' => $donHangId,
                 ':san_pham_id' => $sanPhamId,
                 ':don_gia' => $donGia,
                 ':so_luong' => $soLuong,
-                ':thanh_tien' => $thanhTien
+                ':thanh_tien' => $thanhTien,
+                ':kich_co_id' => $kichCo
             ]);
         } catch (Exception $e) {
             echo "loi" . $e->getMessage();
@@ -68,7 +69,8 @@ class DonHang
             FROM don_hangs 
             INNER JOIN phuong_thuc_thanh_toans ON don_hangs.phuong_thuc_thanh_toan_id = phuong_thuc_thanh_toans.id
             INNER JOIN trang_thai_don_hangs ON don_hangs.trang_thai_id = trang_thai_don_hangs.id
-            WHERE tai_khoan_id = :tai_khoan_id";
+            WHERE tai_khoan_id = :tai_khoan_id
+            ORDER BY id DESC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':tai_khoan_id' => $tai_khoan_id,

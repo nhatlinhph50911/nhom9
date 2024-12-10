@@ -10,7 +10,8 @@ class adminSanPham
     public function getAllSanPham()
     {
         try {
-            $sql = "SELECT san_phams.*, danh_mucs.ten_danh_muc FROM san_phams INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id";
+            $sql = "SELECT san_phams.*, danh_mucs.ten_danh_muc FROM san_phams INNER JOIN danh_mucs ON san_phams.danh_muc_id = danh_mucs.id
+                    ORDER BY id DESC";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll();
@@ -282,6 +283,32 @@ class adminSanPham
                 'trang_thai' => $trang_thai
             ]);
             return $stmt->fetchAll();
+        } catch (Exception $e) {
+            echo "loi" . $e->getMessage();
+        }
+    }
+    public function deleteComment($id)
+    {
+        try {
+            $sql = "DELETE FROM binh_luans WHERE id= :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                'id' => $id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "loi" . $e->getMessage();
+        }
+    }
+    public function getCmtById($id)
+    {
+        try {
+            $sql = "SELECT*FROM binh_luans WHERE id= :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                'id' => $id
+            ]);
+            return $stmt->fetch();
         } catch (Exception $e) {
             echo "loi" . $e->getMessage();
         }

@@ -40,7 +40,7 @@
 
                                         <a href="#account-info" class="active" data-bs-toggle="tab"><i class="fa fa-user"></i> Account
                                             Details</a>
-                                        <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                        <a href="<?= BASE_URL . '?act=logout-client' ?>"><i class="fa fa-sign-out"></i> Logout</a>
                                     </div>
                                 </div>
                                 <!-- My Account Tab Menu End -->
@@ -105,37 +105,40 @@
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <button type="submit" class="btn btn-sqr">Save Changes</button>
+                                                            <button type="submit" class="btn btn-sqr">Thay Đổi</button>
                                                         </div>
                                                     </form>
 
-                                                    <form action="#">
+                                                    <form action="<?= BASE_URL . '?act=update-password' ?>" method="POST" enctype="multipart/form-data">
                                                         <fieldset>
-                                                            <legend>Password change</legend>
+                                                            <legend>Thay đổi mật khẩu</legend>
                                                             <div class="single-input-item">
-                                                                <label for="current-pwd" class="required">Current
-                                                                    Password</label>
-                                                                <input type="password" id="current-pwd" placeholder="Current Password" />
+                                                                <label for="current-pass" class="required">mật khẩu hiện tại</label>
+                                                                <input type="password" name="current-pass" id="current-pass" placeholder="nhập mật khẩu hiện tại" />
+                                                                <?php if (isset($_SESSION['error_verify'])) { ?>
+                                                                    <p class="text-danger login-box-msg"><?= $_SESSION['error_verify'] ?></p>
+                                                                <?php } ?>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="new-pwd" class="required">New
-                                                                            Password</label>
-                                                                        <input type="password" id="new-pwd" placeholder="New Password" />
+                                                                        <label for="new-pass" class="required">mật khẩu mới</label>
+                                                                        <input type="password" name="new-pass" id="new-pass" placeholder="nhập mật khẩu mới" />
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="single-input-item">
-                                                                        <label for="confirm-pwd" class="required">Confirm
-                                                                            Password</label>
-                                                                        <input type="password" id="confirm-pwd" placeholder="Confirm Password" />
+                                                                        <label for="confirm-pass" class="required">xác nhận mật khẩu mới</label>
+                                                                        <input type="password" name="confirm-pass" id="confirm-pass" placeholder="nhập lại mật khẩu mới" />
                                                                     </div>
                                                                 </div>
+                                                                <?php if (isset($_SESSION['error_confirm'])) { ?>
+                                                                    <p class="text-danger login-box-msg"><?= $_SESSION['error_confirm'] ?></p>
+                                                                <?php } ?>
                                                             </div>
                                                         </fieldset>
                                                         <div class="single-input-item">
-                                                            <button class="btn btn-sqr">Save Changes</button>
+                                                            <button class="btn btn-sqr">Thay Đổi</button>
                                                         </div>
                                                     </form>
                                                 </div>

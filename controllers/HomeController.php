@@ -38,6 +38,8 @@ class HomeController
         $listAnhSP = $this->modelSanPham->getListAnhSanPham($id);
         $listCmt = $this->modelSanPham->getListCmtSp($id);
         $sizes = $this->modelSanPham->getSizeById($id);
+        // var_dump($listCmt);
+        // die;
         if (isset($_SESSION['user_client'])) {
             // $SanPham['luot_xem'] += 1;
             $new_view = $SanPham['luot_xem'] + 1;
@@ -103,24 +105,29 @@ class HomeController
                 if (!$gioHang) {
                     $gioHangId = $this->modelGioHang->addGioHang($mail['id']);
                     $gioHang = ['id' => $gioHangId];
-                    // var_dump($gioHang);
-                    // die;
+
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
                 } else {
                     $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
                 }
+                // var_dump($gioHang);
+                // die;
                 $checkSanPham = false;
                 $san_pham_id = $_POST['san_pham_id'];
                 $so_luong = $_POST['so_luong'];
+                $size = $_POST['size'];
+                // var_dump($size);
+                // var_dump($so_luong);
+                // die;
                 foreach ($chiTietGioHang as $detail) {
-                    if ($detail['san_pham_id'] == $san_pham_id) {
+                    if ($detail['san_pham_id'] == $san_pham_id && $detail['kich_co_id'] == $size) {
                         $newSoLuong = $detail['so_luong'] + $so_luong;
                         $this->modelGioHang->updateSoLuong($gioHang['id'], $san_pham_id, $newSoLuong);
                         $checkSanPham = true;
                     }
                 }
                 if (!$checkSanPham) {
-                    $this->modelGioHang->addDetailGH($gioHang['id'], $san_pham_id, $so_luong);
+                    $this->modelGioHang->addDetailGH($gioHang['id'], $san_pham_id, $so_luong, $size);
                 }
                 header("location: " . BASE_URL . '?act=gio-hang');
             }
@@ -133,26 +140,22 @@ class HomeController
     }
     public function gioHang()
     {
-        if ($_SESSION['user_client']) {
-            if (isset($_SESSION['user_client'])) {
-                $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
-                // var_dump($mail['id']);
-                // die;
-                $gioHang = $this->modelGioHang->getGioHangFromUser($mail['id']);
-                if (!$gioHang) {
-                    $gioHangId = $this->modelGioHang->addGioHang($mail['id']);
-                    $gioHang = ['id' => $gioHangId];
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-                } else {
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-                }
-                // var_dump($chiTietGioHang);
-                // die;
-                require_once './views/gioHang.php';
+        if (isset($_SESSION['user_client'])) {
+
+            $mail = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
+            // var_dump($mail['id']);
+            // die;
+            $gioHang = $this->modelGioHang->getGioHangFromUser($mail['id']);
+            if (!$gioHang) {
+                $gioHangId = $this->modelGioHang->addGioHang($mail['id']);
+                $gioHang = ['id' => $gioHangId];
+                $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
             } else {
-                var_dump('loi');
-                die;
+                $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
             }
+            // var_dump($chiTietGioHang);
+            // die;
+            require_once './views/gioHang.php';
         } else {
             echo "<script>
                 alert('bạn chưa đăng nhập');
@@ -162,27 +165,28 @@ class HomeController
     }
     public function thanhToan()
     {
-        if ($_SESSION['user_client']) {
-            if (isset($_SESSION['user_client'])) {
-                $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
-                // var_dump($user['id']);
-                // die;
-                $gioHang = $this->modelGioHang->getGioHangFromUser($user['id']);
-                if (!$gioHang) {
-                    $gioHangId = $this->modelGioHang->addGioHang($user['id']);
-                    $gioHang = ['id' => $gioHangId];
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-                } else {
-                    $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
-                }
-                // var_dump($user);
-                // die;
+        if (isset($_SESSION['user_client'])) {
 
-                require_once './views/thanhToan.php';
+            $user = $this->modelTaiKhoan->getTaiKhoanEmail($_SESSION['user_client']['email']);
+            // var_dump($user['id']);
+            // die;
+            $gioHang = $this->modelGioHang->getGioHangFromUser($user['id']);
+            $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+            // var_dump($chiTietGioHang);
+            // die;
+            if (!$chiTietGioHang) {
+                echo "<script>
+                alert('không có sản phẩm nào để tiến hành đặt hàng');
+                window.location.href = '" . BASE_URL . "?act=gio-hang';
+              </script>";
             } else {
-                var_dump('loi');
-                die;
+                $chiTietGioHang = $this->modelGioHang->getDetailGioHang($gioHang['id']);
+                require_once './views/thanhToan.php';
             }
+            // var_dump($user);
+            // die;
+
+
         } else {
             echo "<script>
                 alert('bạn chưa đăng nhập');
@@ -239,8 +243,10 @@ class HomeController
                         $item['san_pham_id'], //id san pham
                         $donGia, //don gia 
                         $item['so_luong'], // so luong
-                        $donGia * $item['so_luong'] // thanh tien
+                        $donGia * $item['so_luong'], // thanh tien
+                        $item['kich_co_id']
                     );
+                    $this->modelSanPham->updateSoLuongSP($item['san_pham_id'], $item['so_luong']);
                 }
                 // sau khi them tien hanh xoa san pham trong gio hang
                 // xoa toan bo san pham trong chi tiet gio hang
@@ -249,8 +255,10 @@ class HomeController
                 // xoa thong tin gio hang nguoi dung
                 $this->modelGioHang->clearGioHang($tai_khoan_id);
 
-                // chuyen huong ve trang lich su mua hang
-                header("location: " . BASE_URL . '?act=lich-su-mua-hang');
+                echo "<script>
+                    alert('Đặt hàng thành công');
+                    window.location.href = '" . BASE_URL . "?act=lich-su-mua-hang';
+                    </script>";
             } else {
                 var_dump("loi dat hang");
                 die;
@@ -375,12 +383,16 @@ class HomeController
             // var_dump($donHang);
             // var_dump($donHang['trang_thai_id']);
             // die;
-            if ($donHang['trang_thai_id'] != 1) {
+            if ($donHang['trang_thai_id'] >= 3) {
                 echo "<script>
-                alert('chỉ đơn hàng chưa xác nhận mới có thể hủy');
+                alert('những đơn hàng chưa vận chuyển mới có thể hủy');
                 window.location.href = '" . BASE_URL . "?act=lich-su-mua-hang';
               </script>";
                 exit;
+            }
+            $chi_tiet_DH = $this->modelDonHang->getChiTietDonHangId($donHang['id']);
+            foreach ($chi_tiet_DH as $item) {
+                $this->modelSanPham->updateSoLuongSP($item['san_pham_id'], -$item['so_luong']);
             }
             $result = $this->modelDonHang->updateTrangThaiDonHang($don_hang_id, 6);
             if ($result) {
@@ -524,6 +536,43 @@ class HomeController
                 alert('xóa giỏ hàng không thành công');
                 window.location.href = '" . BASE_URL . "?act=gio-hang';
                 </script>";
+            }
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL . "?act=login-client';
+          </script>";
+        }
+    }
+    public function postUpdatePassword()
+    {
+        if (isset($_SESSION['user_client'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $password = $_POST['current-pass'];
+                $newPassword = $_POST['new-pass'];
+                $confirmPassword = $_POST['confirm-pass'];
+                $errors = [];
+                $errors['verify'] = 'mật khẩu không chính xác';
+                if (password_verify($password, $_SESSION['user_client']['mat_khau'])) {
+                    unset($_SESSION['error_verify']);
+                    if ($newPassword == $confirmPassword) {
+                        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+                        $result = $this->modelTaiKhoan->updatePasswordClient($_SESSION['user_client']['id'], $newPassword);
+                        if ($result) {
+                            unset($_SESSION['error_confirm']);
+                            echo "<script>
+                            alert('Thay đổi mật khẩu thành công');
+                            window.location.href = '" . BASE_URL . "?act=/';
+                            </script>";
+                        }
+                    } else {
+                        $_SESSION['error_confirm'] = 'mật khẩu mới và mật khẩu xác nhận không khớp';
+                        require_once './views/inforClient.php';
+                    }
+                } else {
+                    $_SESSION['error_verify'] = 'mật khẩu không chính xác';
+                    require_once './views/inforClient.php';
+                }
             }
         } else {
             echo "<script>

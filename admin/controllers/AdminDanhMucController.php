@@ -9,17 +9,31 @@ class AdminDanhMucController
     }
     public function DanhSachDanhMuc()
     {
-        $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
-
-        require_once './views/DanhMuc/listDanhMuc.php';
+        if (isset($_SESSION['user_admin'])) {
+            $listDanhMuc = $this->modelDanhMuc->getAllDanhMuc();
+            require_once './views/DanhMuc/listDanhMuc.php';
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=login-admin';
+          </script>";
+        }
     }
 
     public function FormAddDanhMuc()
     {
-        require_once './views/DanhMuc/addDanhMuc.php';
+        if (isset($_SESSION['user_admin'])) {
+            require_once './views/DanhMuc/addDanhMuc.php';
+        } else {
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=login-admin';
+          </script>";
+        }
     }
     public function PostAddDanhMuc()
     {
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $ten_danh_muc = $_POST['ten_danh_muc'];
             $mo_ta = $_POST['mo_ta'];
@@ -43,13 +57,20 @@ class AdminDanhMucController
     }
     public function FormEditDanhMuc()
     {
-        $id = $_GET['id_danh_muc'];
-        $danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
-        if ($danhMuc) {
-            require_once './views/DanhMuc/editDanhMuc.php';
+        if (isset($_SESSION['user_admin'])) {
+            $id = $_GET['id_danh_muc'];
+            $danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
+            if ($danhMuc) {
+                require_once './views/DanhMuc/editDanhMuc.php';
+            } else {
+                header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+                exit();
+            }
         } else {
-            header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
-            exit();
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=login-admin';
+          </script>";
         }
     }
     public function PostEditDanhMuc()
@@ -78,14 +99,21 @@ class AdminDanhMucController
     }
     public function deleteDanhMuc()
     {
-        $id = $_GET['id_danh_muc'];
-        $danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
-        if ($danhMuc) {
-            $this->modelDanhMuc->destroyDanhMuc($id);
-            header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+        if (isset($_SESSION['user_admin'])) {
+            $id = $_GET['id_danh_muc'];
+            $danhMuc = $this->modelDanhMuc->getDetailDanhMuc($id);
+            if ($danhMuc) {
+                $this->modelDanhMuc->destroyDanhMuc($id);
+                header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+            } else {
+                header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+                exit();
+            }
         } else {
-            header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
-            exit();
+            echo "<script>
+            alert('bạn chưa đăng nhập');
+            window.location.href = '" . BASE_URL_ADMIN . "?act=login-admin';
+          </script>";
         }
     }
 }

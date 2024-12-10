@@ -54,10 +54,15 @@
                                             <td><?= $donHang['ten_phuong_thuc'] ?></td>
                                             <td><?= $donHang['ten_trang_thai'] ?></td>
                                             <td>
-                                                <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>"><button class="btn btn-sqr">chi tiết</button></a>
-                                                <?php if ($donHang['trang_thai_id'] == 1): ?>
+                                                <?php if ($donHang['trang_thai_id'] < 3) { ?>
+                                                    <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>"><button class="btn btn-sqr">chi tiết</button></a>
                                                     <a href="<?= BASE_URL . '?act=huy-don-hang&id=' . $donHang['id'] ?>" onclick="return confirm('xác nhận hủy đơn hàng')"><button class="btn btn-sqr">Hủy đơn</button></a>
-                                                <?php endif ?>
+                                                <?php } else if ($donHang['trang_thai_id'] == 6) { ?>
+                                                    đơn hàng đã hủy
+                                                <?php } else { ?>
+                                                    <a href="<?= BASE_URL . '?act=chi-tiet-don-hang&id=' . $donHang['id'] ?>"><button class="btn btn-sqr">chi tiết</button></a>
+
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>

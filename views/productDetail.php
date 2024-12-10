@@ -84,7 +84,7 @@
                                             <h6 class="option-title">size :</h6>
                                             <select name="size" class="nice-select">
                                                 <?php foreach ($sizes as $key => $size) { ?>
-                                                    <option><?= $size['size'] ?></option>
+                                                    <option value="<?php echo $size['kich_co_id']; ?>"><?= $size['size'] ?></option>
                                                 <?php  } ?>
                                             </select>
                                         </div>
@@ -92,7 +92,7 @@
                                             <h6 class="option-title">só lượng:</h6>
                                             <div class="quantity">
                                                 <input type="hidden" name="san_pham_id" value="<?= $SanPham['id'] ?>">
-                                                <div class="pro-qty"><input type="text" value="1" name="so_luong"></div>
+                                                <div><input type="number" min="1" max="<?= $SanPham['so_luong'] ?>" oninput="checkMaxValue(this)" value="1" name="so_luong"></div>
                                             </div>
                                             <div class="action_link">
                                                 <button> <a class="btn btn-cart2">Thêm vào giỏ</a></button>
@@ -136,6 +136,7 @@
                                                         </div>
                                                         <p><?= $cmt['noi_dung'] ?></p>
                                                     </div>
+
                                                 </div>
                                             <?php endforeach ?>
                                             <form action="<?= BASE_URL . '?act=binh-luan'; ?>" method="POST">
@@ -243,6 +244,19 @@
     </section>
     <!-- related products area end -->
 </main>
+<!-- <script>
+    function checkMaxValue(input) {
+        const max = parseInt(input.max);
+        const min = parseInt(input.min);
+        const value = parseInt(input.value);
+
+        if (value > max) {
+            input.value = max; // Nếu nhập lớn hơn max, đặt lại về max
+        } else if (value < min) {
+            input.value = min; // Nếu nhập nhỏ hơn min, đặt lại về min
+        }
+    }
+</script> -->
 
 <!-- offcanvas mini cart start -->
 <?php require_once 'layout/miniCart.php' ?>

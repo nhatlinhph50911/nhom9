@@ -130,4 +130,20 @@ class TaiKhoan
             echo "Lỗi" . $e->getMessage();
         }
     }
+    public function updatePasswordClient($tai_khoan_id, $mat_khau)
+    {
+        try {
+            $sql = "UPDATE tai_khoans SET
+                mat_khau = :mat_khau
+                WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':mat_khau' => $mat_khau,
+                ':id' => $tai_khoan_id
+            ]);
+            return true;
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }

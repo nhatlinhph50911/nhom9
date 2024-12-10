@@ -169,7 +169,7 @@ class AdminTaiKhoanController
         if (isset($_SESSION['user_admin'])) {
             echo "<script>
                 alert('bạn đã đăng nhập trước đó rồi');
-                window.location.href = '" . BASE_URL_ADMIN . "?act=danh-muc';
+                window.location.href = '" . BASE_URL_ADMIN . "';
               </script>";
         } else {
             require_once './views/auth/formLogin.php';
@@ -197,7 +197,7 @@ class AdminTaiKhoanController
                 $_SESSION['user_admin'] = $this->modelTaiKhoan->getTaiKhoanEmail($user);
 
                 unset($_SESSION['error']);
-                header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+                header("location: " . BASE_URL_ADMIN);
                 exit();
             } else {
                 $_SESSION['error'] = $user;
@@ -248,7 +248,7 @@ class AdminTaiKhoanController
             // var_dump($_SESSION['user_client']);
             // var_dump("null");
             // die;
-            header("location: " . BASE_URL_ADMIN . '?act=danh-muc');
+            header("location: " . BASE_URL_ADMIN);
         }
     }
     public function postEditCaNhan()

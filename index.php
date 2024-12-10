@@ -44,6 +44,7 @@ match ($act) {
     'check-register' => (new HomeController())->postRegisters(),
     'tai-khoan-client' => (new HomeController())->inforClient(),
     'edit-client' => (new HomeController())->postEditClient(),
+    'update-password' => (new HomeController())->postUpdatePassword(),
 
     //binh luan
     'binh-luan' => (new HomeController())->postBinhLuan(),

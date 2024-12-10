@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý danh sách sản phẩm</h1>
+                    <h1>Chi tiết sản phẩm</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -74,13 +74,13 @@
                             <tbody>
                                 <?php foreach ($listCmt as $key => $Cmt) : ?>
                                     <tr>
-                                        <td> <?php echo $key + 1; ?> </td>
+                                        <td> <?php echo $key + 1 ?> </td>
                                         <td> <?php echo $Cmt['ho_ten']; ?> </td>
                                         <td> <?php echo $Cmt['noi_dung']; ?> </td>
                                         <td> <?php echo $Cmt['ngay_dang']; ?> </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="<?php echo BASE_URL_ADMIN . '?act=xoa-comment&id_comment=' . $binh_luans['id']; ?>" onclick="return confirm('Bạn có đồng ý xóa hay không?')">
+                                                <a href="<?= BASE_URL_ADMIN . '?act=xoa-comment&id_comment=' . $Cmt['id']; ?>" onclick="return confirm('Bạn có đồng ý xóa hay không?')">
                                                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </a>
                                             </div>

@@ -120,6 +120,7 @@
                                             <figure class="product-thumb">
                                                 <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $SanPham['id']; ?>">
                                                     <img class="pri-img" src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
+                                                    <img class="sec-img" src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
                                                 </a>
                                                 <div class="product-badge">
                                                     <?php
@@ -202,6 +203,7 @@
                                 <figure class="product-thumb">
                                     <a href="<?= BASE_URL . '?act=chi-tiet-san-pham&id_san_pham=' . $SanPham['id']; ?>">
                                         <img class="pri-img" src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
+                                        <img class="sec-img" src="<?php echo BASE_URL . $SanPham['hinh_anh']; ?>" alt="">
                                     </a>
                                     <div class="product-badge">
                                         <?php

@@ -150,32 +150,26 @@
                                     <div class="single-payment-method show">
                                         <div class="payment-method-name">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="cashon" name="phuong_thuc_thanh_toan_id" value="1" class="custom-control-input" checked />
+                                                <input type="radio" id="cashon" name="phuong_thuc_thanh_toan_id" value="2" class="custom-control-input" checked />
                                                 <label class="custom-control-label" for="cashon">thanh toán khi nhận hàng</label>
                                             </div>
                                         </div>
-                                        <div class="payment-method-details" data-method="cash">
-                                            <p>khách hàng có thể thanh toán sau khi nhận hàng</p>
-                                        </div>
+
                                     </div>
                                     <div class="single-payment-method">
                                         <div class="payment-method-name">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="directbank" name="phuong_thuc_thanh_toan_id" value="2" class="custom-control-input" />
+                                                <input type="radio" id="directbank" name="phuong_thuc_thanh_toan_id" value="1" class="custom-control-input" checked />
                                                 <label class="custom-control-label" for="directbank">thanh toán online</label>
                                             </div>
                                         </div>
-                                        <div class="payment-method-details" data-method="bank">
-                                            <p>khách hàng có thể thanh toán online bằng app ngân hàng</p>
-                                        </div>
                                     </div>
-
                                     <div class="summary-footer-area">
                                         <div class="custom-control custom-checkbox mb-20">
                                             <input type="checkbox" class="custom-control-input" id="terms" required />
                                             <label class="custom-control-label" for="terms">Xác nhận đặt hàng </label>
                                         </div>
-                                        <button type="submit" class="btn btn-sqr">Đặt hàng</button>
+                                        <button type="submit" class="btn btn-sqr">Thanh toán</button>
                                     </div>
                                 </div>
 
@@ -188,6 +182,33 @@
     </div>
     <!-- checkout main wrapper end -->
 </main>
+<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<!-- jQuery JS -->
+<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+<!-- slick Slider JS -->
+<script src="assets/js/plugins/slick.min.js"></script>
+<!-- Countdown JS -->
+<script src="assets/js/plugins/countdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="assets/js/plugins/nice-select.min.js"></script>
+<!-- jquery UI JS -->
+<script src="assets/js/plugins/jqueryui.min.js"></script>
+<!-- Image zoom JS -->
+<script src="assets/js/plugins/image-zoom.min.js"></script>
+<!-- Images loaded JS -->
+<script src="assets/js/plugins/imagesloaded.pkgd.min.js"></script>
+<!-- mail-chimp active js -->
+<script src="assets/js/plugins/ajaxchimp.js"></script>
+<!-- contact form dynamic js -->
+<script src="assets/js/plugins/ajax-mail.js"></script>
+<!-- google map api -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfmCVTjRI007pC1Yk2o2d_EhgkjTsFVN8"></script>
+<!-- google map active js -->
+<script src="assets/js/plugins/google-map.js"></script>
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
 
 <!-- offcanvas mini cart start -->
 <?php require_once 'layout/miniCart.php' ?>

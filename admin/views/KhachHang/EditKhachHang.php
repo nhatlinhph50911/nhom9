@@ -54,8 +54,7 @@
                                 <?php endif ?>
                             </div>
                             <div class="form-group">
-                                <label for="password">password</label>
-                                <input type="text" id="password" name="password" class="form-control" value="<?php echo $TkKhachHang['mat_khau']; ?>">
+                                <input type="text" id="password" name="password" class="form-control" value="<?php echo $TkKhachHang['mat_khau']; ?>" hidden>
                                 <?php if (isset($_SESSION['error']['password'])) : ?>
                                     <p class="text-danger"> <?php echo $_SESSION['error']['password']; ?> </p>
                                 <?php endif ?>

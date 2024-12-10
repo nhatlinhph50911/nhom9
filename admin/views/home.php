@@ -101,7 +101,7 @@
                             <h3></h3>
                         <?php } ?>
                         <h3><?= $count ?></h3>
-                        <p>Sản phẩm tồn kho</p>
+                        <p>Sản phẩm trong kho</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
@@ -121,7 +121,7 @@
                             <h2></h2>
                             <h2></h2>
                             <div class="card-header border-0">
-                                <h3 class="card-title">Products</h3>
+                                <h3 class="card-title">sản phẩm bán nhiều nhất</h3>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-tool btn-sm">
                                         <i class="fas fa-download"></i>

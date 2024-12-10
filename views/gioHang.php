@@ -39,6 +39,7 @@
                                     <tr>
                                         <th class="pro-thumbnail">ảnh sản phẩm</th>
                                         <th class="pro-title">tên sản phẩm</th>
+                                        <th class="pro-title">size</th>
                                         <th class="pro-price">giá tiền</th>
                                         <th class="pro-quantity">số lượng </th>
                                         <th class="pro-subtotal">tổng tiền</th>
@@ -53,6 +54,7 @@
                                         <tr>
                                             <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="<?= BASE_URL . $SanPham['hinh_anh'] ?>" alt="Product" /></a></td>
                                             <td class="pro-title"><a href="#"><?= $SanPham['ten_san_pham'] ?> </a></td>
+                                            <td class="pro-title"><a href="#"><?= $SanPham['size'] ?> </a></td>
                                             <?php if ($SanPham['gia_khuyen_mai']) { ?>
                                                 <td class="pro-price"><span><?= formatPrice($SanPham['gia_khuyen_mai']) . 'đ' ?></span></td>
                                             <?php } else { ?>
@@ -73,24 +75,13 @@
                                                     echo formatPrice($tongTien) . 'đ'
                                                     ?>
                                                 </span></td>
-                                            <td class="pro-remove"><a href="<?= BASE_URL . '?act=xoa-gio-hang&san_pham_id=' . $SanPham['san_pham_id'] ?>"><i class="fa fa-trash-o"></i></a></td>
+                                            <td class="pro-remove"><a href="<?= BASE_URL . '?act=xoa-gio-hang&san_pham_id=' . $SanPham['san_pham_id'] ?>" onclick="return confirm('xác nhận xóa sản phẩm khỏi giỏ hàng')"><i class="fa fa-trash-o"></i></a></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Cart Update Option -->
-                        <div class="cart-update-option d-block d-md-flex justify-content-between">
-                            <div class="apply-coupon-wrapper">
-                                <form action="#" method="post" class=" d-block d-md-flex">
-                                    <input type="text" placeholder="Enter Your Coupon Code" required />
-                                    <button class="btn btn-sqr">Apply Coupon</button>
-                                </form>
-                            </div>
-                            <div class="cart-update">
-                                <a href="#" class="btn btn-sqr">Update Cart</a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="row">
